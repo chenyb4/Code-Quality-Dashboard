@@ -23,6 +23,9 @@ export default async function Home() {
 
     const data = await getSonarQubeData('launchpad','coverage,cognitive_complexity','1000','2023-10-01');
 
+
+
+
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <Card className="max-w-lg mx-auto">
