@@ -28,7 +28,7 @@ import { Select, SelectItem } from "@tremor/react";
 async function getDataByDaysAgo(days:number){
     const currentDate=new Date();
     const fromDateString=addDays(currentDate,0-days).toISOString().split('T')[0];
-    const data = await getSonarQubeData('launchpad','coverage,cognitive_complexity','1000',fromDateString);
+    const data = await getSonarQubeData('launchpad','coverage,cognitive_complexity,sqale_index','1000',fromDateString);
     return data;
 }
 
@@ -53,7 +53,7 @@ export default async function Home() {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <Card className="max-w-lg mx-auto">
+            <Card className="max-w-screen-xl mx-auto">
             <TabGroup>
                 <div>
                     <Button size="xs" variant="secondary" className="mx-1">last week</Button>
@@ -63,8 +63,9 @@ export default async function Home() {
 
 
                 <TabList className="mt-6">
-                    <Tab>code coverage</Tab>
-                    <Tab>cognitive complexity</Tab>
+                    <Tab>Code Coverage(should go up)</Tab>
+                    <Tab>Cognitive Complexity(should go down)</Tab>
+                    <Tab>Technical Debt(should go down)</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
@@ -72,6 +73,9 @@ export default async function Home() {
                     </TabPanel>
                     <TabPanel>
                         <MyLineChart data={data.measures[1].history} />
+                    </TabPanel>
+                    <TabPanel>
+                        <MyLineChart data={data.measures[2].history} />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>
