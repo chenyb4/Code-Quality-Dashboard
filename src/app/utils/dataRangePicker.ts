@@ -1,0 +1,25 @@
+
+import {getSonarQubeData} from "@/app/utils/dataFetchers";
+
+
+
+
+function addDays(date:Date, days:number) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+
+
+/**
+ * get data by data from how many days ago we want to see
+ * @param days the number of days to trace back
+ * @return array of sonarqube data
+ */
+export async function getDataByDaysAgo(days:number){
+    const currentDate=new Date();
+    const fromDateString=addDays(currentDate,0-days).toISOString().split('T')[0];
+    const data = await getSonarQubeData('launchpad','coverage,cognitive_complexity,sqale_index','1000',fromDateString);
+    return data;
+}

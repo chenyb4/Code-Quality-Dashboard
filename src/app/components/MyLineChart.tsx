@@ -1,5 +1,5 @@
 import {LineChart} from "@tremor/react";
-import {formatDate} from "@/app/helpers/dateFormatter";
+import {formatDate} from "@/app/utils/dateFormatter";
 
 interface Props {
     data: { date: string, value: string }[];
@@ -27,6 +27,7 @@ export function MyLineChart({data}: Props) {
             categories={["value"]}
             colors={["emerald"]}
             yAxisWidth={40}
+            showAnimation={true}
         />
     );
 }
