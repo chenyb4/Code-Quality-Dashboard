@@ -2,8 +2,12 @@
 import {getSonarQubeData} from "@/app/utils/dataFetchers";
 
 
-
-
+/**
+ * add days to a date provided
+ * @param date date provided
+ * @param days number of days to add to it. can be negative whole number
+ * @return the date after the days are added
+ */
 function addDays(date:Date, days:number) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);

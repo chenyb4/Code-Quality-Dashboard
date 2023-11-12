@@ -2,6 +2,7 @@ import {BadgeDelta, Card, Grid} from "@tremor/react";
 import {MyLineChart} from "@/app/components/MyLineChart";
 import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
+import {MyCard} from "@/app/components/MyCard";
 
 
 function getImprovement(historyArray: { date: string, value: string }[]): number {
@@ -31,35 +32,10 @@ export async function Dashboard() {
 
 
     return (
-
-
             <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-
-                <Card key='fdfs' className='w-96'>
-                    <h1>Code Coverage</h1>
-
-
-
-                    <BadgeDelta deltaType="moderateIncrease" isIncreasePositive={true} size="xs">
-
-                    </BadgeDelta>
-
-
-                    <MyLineChart data={data.measures[0].history}/>
-
-
-                </Card>
-                <Card>
-                    <h1>Cognitive Complexity</h1>
-                    <MyLineChart data={data.measures[1].history}/>
-                </Card>
-                <Card>
-                    <h1>Technical Debt</h1>
-                    <MyLineChart data={data.measures[2].history}/>
-                </Card>
-
-
-
+                <MyCard title="Code Coverage" history={data.measures[0].history}/>
+                <MyCard title="Cognitive Complexity" history={data.measures[1].history}/>
+                <MyCard title="Technical Debt" history={data.measures[2].history}/>
             </Grid>
 
     );

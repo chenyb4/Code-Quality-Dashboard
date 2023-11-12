@@ -10,6 +10,9 @@ export function MyLineChart({data}: Props) {
 
     let dataFormatted: { date: string, value: string }[]=[];
 
+
+    //this block is just for formatting the date format to netherlands format
+    // for each data point
     data.forEach((obj) => {
         let formattedDate = obj.date.slice(0, 10);
         formattedDate=formatDate(formattedDate);
