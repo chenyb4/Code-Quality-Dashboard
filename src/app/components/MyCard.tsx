@@ -11,15 +11,21 @@ interface Props {
 }
 
 export function MyCard({title,history,isIncreasePositive}:Props){
+    let persentageMark=null;
+    if(title=="Code Coverage"){
+        persentageMark="%";
+    }
+
     let badgeDelta = null;
     //last value - first value
     let improvement=getImprovement(history);
     let improvementAbsolute=Math.abs(improvement);
     if(improvement>=0){
-        badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}</BadgeDelta>;
+        badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
     }else{
-        badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}</BadgeDelta>;
+        badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
     }
+
 
     return(
         <Card className='w-96 shadow-md border-gray-300 border' >
@@ -28,7 +34,7 @@ export function MyCard({title,history,isIncreasePositive}:Props){
             </Text>
             {badgeDelta}
             <Metric className="text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2">
-                {getCurrentValue(history)}
+                {getCurrentValue(history)}{persentageMark}
             </Metric>
             <MyLineChart historyArray={history}/>
         </Card>
