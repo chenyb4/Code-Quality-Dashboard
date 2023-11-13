@@ -1,31 +1,18 @@
 import {LineChart} from "@tremor/react";
-import {formatDate} from "@/app/utils/dateFormatter";
+import {formatDate, formatToNetherlandsTimeFormat} from "@/app/utils/helperFucntions";
 
 interface Props {
-    data: { date: string, value: string }[];
+    historyArray: { date: string, value: string }[];
 }
 
+export function MyLineChart({historyArray}: Props) {
 
-export function MyLineChart({data}: Props) {
-
-    let dataFormatted: { date: string, value: string }[]=[];
-
-
-    //this block is just for formatting the date format to netherlands format
-    // for each data point
-    data.forEach((obj) => {
-        let formattedDate = obj.date.slice(0, 10);
-        formattedDate=formatDate(formattedDate);
-        let formattedDp: { date: string, value: string } = {date:"", value:""};
-        formattedDp.date = formattedDate;
-        formattedDp.value = obj.value;
-        dataFormatted.push(formattedDp);
-    })
+    let historyArrayFormatted=formatToNetherlandsTimeFormat(historyArray);
 
     return (
         <LineChart
             className="mt-6 h-52"
-            data={dataFormatted}
+            data={historyArrayFormatted}
             index="date"
             categories={["value"]}
             colors={["emerald"]}
