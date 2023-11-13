@@ -24,7 +24,7 @@ export function MyLineChart({data}: Props) {
 
     return (
         <LineChart
-            className="mt-6"
+            className="mt-6 h-52"
             data={dataFormatted}
             index="date"
             categories={["value"]}
