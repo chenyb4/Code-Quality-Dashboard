@@ -37,7 +37,6 @@ export async function Dashboard() {
                 <MyCard title="Cognitive Complexity" history={data.measures[1].history}/>
                 <MyCard title="Technical Debt" history={data.measures[2].history}/>
             </Grid>
-
     );
 }
 
