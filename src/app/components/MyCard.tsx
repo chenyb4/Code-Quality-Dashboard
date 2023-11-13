@@ -15,7 +15,7 @@ export function MyCard({title,history,isIncreasePositive}:Props){
     let badgeDeltaAndMetric=MyBadgeDeltaAndMetric({title,history,isIncreasePositive});
 
     return(
-        <Card className='w-96 shadow-md border-gray-300 border' >
+        <Card className='w-auto shadow-md border-gray-300 border' >
             <Text className="text-3xl font-bold dark:text-white text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-emerald-400 float-left">
                 {title}
             </Text>

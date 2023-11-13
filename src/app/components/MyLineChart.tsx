@@ -11,7 +11,7 @@ export function MyLineChart({historyArray}: Props) {
 
     return (
         <LineChart
-            className="mt-10 h-48"
+            className="mt-10 h-24"
             data={historyArrayFormatted}
             index="date"
             categories={["value"]}
@@ -20,6 +20,10 @@ export function MyLineChart({historyArray}: Props) {
             showAnimation={true}
             autoMinValue={true}
             showLegend={false}
+            showXAxis={false}
+            showYAxis={false}
+            showGridLines={true}
+
         />
     );
 }

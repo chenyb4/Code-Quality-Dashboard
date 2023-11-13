@@ -11,6 +11,8 @@ interface Props {
 }
 
 export function MyBadgeDeltaAndMetric({title,history,isIncreasePositive}:Props){
+    const styleForMetric="text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2";
+    const styleForBadgeDelta="float-left ml-4";
 
     //current value for tech debt
     let minutes=null;
@@ -34,17 +36,17 @@ export function MyBadgeDeltaAndMetric({title,history,isIncreasePositive}:Props){
         if(title=="Technical Debt"){
             hours=Math.floor(improvement / 60);
             minutes=improvement% 60;
-            badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{hours}h {minutes}m</BadgeDelta>;
+            badgeDelta=<BadgeDelta className={styleForBadgeDelta} deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{hours}h {minutes}m</BadgeDelta>;
         }else{
-            badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
+            badgeDelta=<BadgeDelta className={styleForBadgeDelta} deltaType="moderateIncrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
         }
     }else{
         if(title=="Technical Debt"){
             hours=Math.floor(improvementAbsolute / 60);
             minutes=improvementAbsolute% 60;
-            badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{hours}h {minutes}m</BadgeDelta>;
+            badgeDelta=<BadgeDelta className={styleForBadgeDelta} deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{hours}h {minutes}m</BadgeDelta>;
         }else{
-            badgeDelta=<BadgeDelta className="float-left ml-4" deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
+            badgeDelta=<BadgeDelta className={styleForBadgeDelta} deltaType="moderateDecrease" isIncreasePositive={isIncreasePositive}>{improvementAbsolute}{persentageMark}</BadgeDelta>;
         }
     }
 
@@ -54,9 +56,9 @@ export function MyBadgeDeltaAndMetric({title,history,isIncreasePositive}:Props){
         let currentMinutesInTotal=parseInt(getCurrentValue(history));
         hours=Math.floor(currentMinutesInTotal / 60);
         minutes=currentMinutesInTotal% 60;
-        metric= <Metric className="text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2">{hours}h {minutes}m</Metric>
+        metric= <Metric className={styleForMetric}>{hours}h {minutes}m</Metric>
     }else{
-        metric=<Metric className="text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2">{getCurrentValue(history)}{persentageMark}</Metric>
+        metric=<Metric className={styleForMetric}>{getCurrentValue(history)}{persentageMark}</Metric>
     }
 
 
