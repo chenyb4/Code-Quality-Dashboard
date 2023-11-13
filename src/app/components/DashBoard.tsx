@@ -1,11 +1,8 @@
-import {BadgeDelta, Card, Grid} from "@tremor/react";
-import {MyLineChart} from "@/app/components/MyLineChart";
+import { Grid} from "@tremor/react";
 import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
 
-
-// @ts-ignore
 export async function Dashboard() {
 
     const data = await getDataByDaysAgo(30);

@@ -1,5 +1,5 @@
 import {LineChart} from "@tremor/react";
-import {formatDate, formatToNetherlandsTimeFormat} from "@/app/utils/helperFucntions";
+import {formatToNetherlandsTimeFormat} from "@/app/utils/helperFucntions";
 
 interface Props {
     historyArray: { date: string, value: string }[];
