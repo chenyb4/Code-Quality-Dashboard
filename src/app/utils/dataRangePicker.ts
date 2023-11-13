@@ -1,5 +1,5 @@
 
-import {getSonarQubeData} from "@/app/utils/dataFetchers";
+import {getSonarQubeMeasuresHistory} from "@/app/utils/dataFetchers";
 
 
 /**
@@ -24,6 +24,6 @@ function addDays(date:Date, days:number) {
 export async function getDataByDaysAgo(days:number){
     const currentDate=new Date();
     const fromDateString=addDays(currentDate,0-days).toISOString().split('T')[0];
-    const data = await getSonarQubeData('launchpad','coverage,cognitive_complexity,sqale_index','1000',fromDateString);
+    const data = await getSonarQubeMeasuresHistory('launchpad','coverage,cognitive_complexity,sqale_index','1000',fromDateString);
     return data;
 }
