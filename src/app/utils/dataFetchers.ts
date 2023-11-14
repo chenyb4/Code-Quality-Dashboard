@@ -35,7 +35,7 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
 
 export async function getSonarQubeIssuesByRules(component: string, ps: string, rules: string) {
     const resp = await fetch('https://sonarqube.app1.printdeal.cloud/api/issues/search?' + new URLSearchParams({
-        component: component,
+        componentKeys: component,
         ps: ps,
         rules: rules,
     }),
