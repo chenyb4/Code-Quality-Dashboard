@@ -7,7 +7,7 @@ interface Props {
 
 export function MyLineChart({historyArray}: Props) {
 
-    let historyArrayFormatted=formatToNetherlandsTimeFormat(historyArray);
+    let historyArrayFormatted = formatToNetherlandsTimeFormat(historyArray);
 
     return (
         <LineChart
@@ -23,7 +23,6 @@ export function MyLineChart({historyArray}: Props) {
             showXAxis={false}
             showYAxis={true}
             showGridLines={true}
-
         />
     );
 }

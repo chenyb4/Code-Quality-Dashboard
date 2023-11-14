@@ -3,7 +3,7 @@
  * @param historyArray the history array from SonarQube data
  * @return current value
  */
-export function getCurrentValue(historyArray: { date: string, value: string }[]){
+export function getCurrentValue(historyArray: { date: string, value: string }[]) {
     const lastItem = historyArray[historyArray.length - 1];
     return lastItem.value;
 }
@@ -27,12 +27,12 @@ export function getImprovement(historyArray: { date: string, value: string }[]):
  * @param input a string of the date input in a format of yyyy-mm-dd
  * @return a string of formatted date in the format of dd/mm/yyyy
  */
-export function formatDate (input:string) {
+export function formatDate(input: string) {
     var datePart = input.match(/\d+/g),
         year = datePart?.[0].substring(0), // get four digits
         month = datePart?.[1], day = datePart?.[2];
 
-    return day+'/'+month+'/'+year;
+    return day + '/' + month + '/' + year;
 }
 
 
@@ -41,12 +41,12 @@ export function formatDate (input:string) {
  * @param data the history array from the SonarQube data
  * @return the history array from the SonarQube data with Netherlands date and time format
  */
-export function formatToNetherlandsTimeFormat(data:{ date: string, value: string }[]){
-    let dataFormatted: { date: string, value: string }[]=[];
+export function formatToNetherlandsTimeFormat(data: { date: string, value: string }[]) {
+    let dataFormatted: { date: string, value: string }[] = [];
     data.forEach((obj) => {
         let formattedDate = obj.date.slice(0, 10);
-        formattedDate=formatDate(formattedDate);
-        let formattedDp: { date: string, value: string } = {date:"", value:""};
+        formattedDate = formatDate(formattedDate);
+        let formattedDp: { date: string, value: string } = {date: "", value: ""};
         formattedDp.date = formattedDate;
         formattedDp.value = obj.value;
         dataFormatted.push(formattedDp);
