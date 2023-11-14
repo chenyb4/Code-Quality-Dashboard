@@ -7,12 +7,14 @@ interface Props {
     title:string;
     history: { date: string, value: string }[];
     isIncreasePositive:boolean;
+    formatToPercentage?:boolean;
+    formatToHoursAndMinutes?:boolean;
 
 }
 
-export function MyCard({title,history,isIncreasePositive}:Props){
+export function MyCard({title,history,isIncreasePositive,formatToHoursAndMinutes=false,formatToPercentage=false}:Props){
 
-    let badgeDeltaAndMetric=MyBadgeDeltaAndMetric({title,history,isIncreasePositive});
+    let badgeDeltaAndMetric=MyBadgeDeltaAndMetric({title,history,isIncreasePositive,formatToHoursAndMinutes,formatToPercentage});
 
     return(
         <Card className='w-96 shadow-md border-gray-300 border' >
