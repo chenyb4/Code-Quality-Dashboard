@@ -1,23 +1,22 @@
+
 import {BarList, Card, Grid, Text} from "@tremor/react";
 import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
-import {MyLineChart} from "@/app/components/MyLineChart";
-import {getProjectsFromSonarQube, getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 
-export async function Dashboard() {
+import {getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 
-    const data = await getDataByDaysAgo(30,'launchpad');
+interface Props {
+    component:string;
+}
 
+export async function Dashboard({component}:Props) {
+
+    const data = await getDataByDaysAgo(30,component);
     //console.log(data);
 
     let deprecationData = await getSonarQubeIssuesByRules('launchpad', '500', 'typescript:S1874');
-
     //console.log(deprecationData);
-
-
-    let projects=await getProjectsFromSonarQube();
-    console.log(projects);
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
