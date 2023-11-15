@@ -52,3 +52,24 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
     }
     return data;
 }
+
+
+
+
+export async function getProjectsFromSonarQube() {
+    const resp = await fetch('https://sonarqube.app1.printdeal.cloud/api/components/search?' + new URLSearchParams({
+        qualifiers:'TRK',
+    }),
+        {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'authorization': 'Basic ' + SONARQUBE_TOKEN,
+            }
+        });
+    let data = resp.json();
+    if (!data) {
+        throw new Error('Failed to fetch');
+    }
+    return data;
+}

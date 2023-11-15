@@ -21,9 +21,9 @@ function addDays(date:Date, days:number) {
  * @param days the number of days to trace back
  * @return array of sonarqube data
  */
-export async function getDataByDaysAgo(days:number){
+export async function getDataByDaysAgo(days:number, component:string){
     const currentDate=new Date();
     const fromDateString=addDays(currentDate,0-days).toISOString().split('T')[0];
-    const data = await getSonarQubeMeasuresHistory('launchpad','coverage,cognitive_complexity,sqale_index','1000',fromDateString);
+    const data = await getSonarQubeMeasuresHistory(component,'coverage,cognitive_complexity,sqale_index','1000',fromDateString);
     return data;
 }

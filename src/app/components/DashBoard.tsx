@@ -3,17 +3,21 @@ import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
 import {MyLineChart} from "@/app/components/MyLineChart";
-import {getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
+import {getProjectsFromSonarQube, getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 
 export async function Dashboard() {
 
-    const data = await getDataByDaysAgo(30);
+    const data = await getDataByDaysAgo(30,'launchpad');
 
-    console.log(data);
+    //console.log(data);
 
     let deprecationData = await getSonarQubeIssuesByRules('launchpad', '500', 'typescript:S1874');
 
-    console.log(deprecationData);
+    //console.log(deprecationData);
+
+
+    let projects=await getProjectsFromSonarQube();
+    console.log(projects);
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 

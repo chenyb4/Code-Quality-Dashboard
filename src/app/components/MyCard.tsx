@@ -21,7 +21,7 @@ export function MyCard({
                            formatToPercentage = false
                        }: Props) {
 
-    let badgeDeltaAndMetric = MyMetric({
+    let metric = MyMetric({
         history,
         formatToHoursAndMinutes,
         formatToPercentage
@@ -36,7 +36,7 @@ export function MyCard({
                 {title}
             </Text>
             {badgeDelta}
-            {badgeDeltaAndMetric}
+            {metric}
             <MyLineChart historyArray={history}/>
         </Card>
     )
