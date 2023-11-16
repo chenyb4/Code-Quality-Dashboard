@@ -6,28 +6,40 @@ import {MyBadgeDelta} from "@/app/components/MyBadgeDelta";
 
 interface Props {
     title: string;
-    history: { date: string, value: string }[];
-    isIncreasePositive: boolean;
+    history?: { date: string, value: string }[];
+    isIncreasePositive?: boolean;
     formatToPercentage?: boolean;
     formatToHoursAndMinutes?: boolean;
+    currentValueIfKnown?: number;
 
 }
 
 export function MyCard({
                            title,
                            history,
-                           isIncreasePositive,
+                           isIncreasePositive=true,
                            formatToHoursAndMinutes = false,
-                           formatToPercentage = false
+                           formatToPercentage = false,
+                           currentValueIfKnown = 0,
                        }: Props) {
 
-    let metric = MyMetric({
-        history,
-        formatToHoursAndMinutes,
-        formatToPercentage
-    });
 
-    let badgeDelta = MyBadgeDelta({history, isIncreasePositive});
+    let badgeDelta = null;
+    let metric;
+    let lineChart = null;
+
+    if (history) {
+        metric = MyMetric({
+            history,
+            formatToHoursAndMinutes,
+            formatToPercentage,
+        });
+        badgeDelta = MyBadgeDelta({history, isIncreasePositive});
+        lineChart = <MyLineChart historyArray={history}/>
+    } else {
+        metric = MyMetric({currentValueIfKnown,});
+    }
+
 
     return (
         <Card className='w-96 shadow-md border-gray-300 border'>
@@ -37,7 +49,7 @@ export function MyCard({
             </Text>
             {badgeDelta}
             {metric}
-            <MyLineChart historyArray={history}/>
+            {lineChart}
         </Card>
     )
 }

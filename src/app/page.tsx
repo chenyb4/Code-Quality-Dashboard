@@ -1,6 +1,5 @@
 
-
-import React, {useState} from "react";
+import React from "react";
 import {Dashboard} from "@/app/components/DashBoard";
 import {getProjectsFromSonarQube} from "@/app/utils/dataFetchers";
 

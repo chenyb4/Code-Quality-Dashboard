@@ -15,20 +15,17 @@ export async function Dashboard({component}:Props) {
     const data = await getDataByDaysAgo(30,component);
     //console.log(data);
 
-    let deprecationData = await getSonarQubeIssuesByRules('launchpad', '500', 'typescript:S1874');
+    //rules is a string, multiple rules can be divided by comma
+    let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874');
     //console.log(deprecationData);
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
     let dataBarList = [
         {
-            name: 'TypeScript',
+            name: '',
             value: numberOfDeprecationTS,
         },
-        {
-            name: 'JavaScript(place holder value)',
-            value: 50,
-        }
     ]
 
     return (
@@ -47,6 +44,13 @@ export async function Dashboard({component}:Props) {
                 <BarList data={dataBarList} className="mt-10" color='emerald' showAnimation={true}/>
 
             </Card>
+
+
+           <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
+
+
+
+
         </Grid>
     );
 }
