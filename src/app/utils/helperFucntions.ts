@@ -3,10 +3,10 @@
  * @param historyArray the history array from SonarQube data
  * @return current value
  */
-export function getCurrentValue(historyArray: { date: string, value: string }[]) {
-    let currentValue;
+export function getCurrentValue(historyArray: { date: string, value: string }[]):number {
+    let currentValue:number;
     if(historyArray.length>0){
-        currentValue=historyArray[historyArray.length - 1];
+        currentValue=parseInt(historyArray[historyArray.length - 1].value);
     }else{
         currentValue=0;
     }
