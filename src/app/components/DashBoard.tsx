@@ -1,5 +1,4 @@
-
-import {BarList, Card, Grid, Text} from "@tremor/react";
+import {Grid} from "@tremor/react";
 import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
@@ -13,11 +12,9 @@ interface Props {
 export async function Dashboard({component}:Props) {
 
     const data = await getDataByDaysAgo(30,component);
-    //console.log(data);
 
     //rules is a string, multiple rules can be divided by comma
     let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874');
-    //console.log(deprecationData);
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
@@ -35,13 +32,7 @@ export async function Dashboard({component}:Props) {
             <MyCard title="Cognitive Complexity" history={data.measures[1].history} isIncreasePositive={false}/>
             <MyCard title="Technical Debt" history={data.measures[2].history} isIncreasePositive={false}
                     formatToHoursAndMinutes={true}/>
-
-
            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
-
-
-
-
         </Grid>
     );
 }

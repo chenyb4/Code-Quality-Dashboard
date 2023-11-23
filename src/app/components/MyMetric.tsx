@@ -1,5 +1,5 @@
-import {getCurrentValue, getImprovement} from "@/app/utils/helperFucntions";
-import {BadgeDelta, Metric} from "@tremor/react";
+import {getCurrentValue} from "@/app/utils/helperFucntions";
+import {Metric} from "@tremor/react";
 import React from "react";
 
 
@@ -23,7 +23,7 @@ export function MyMetric({
     if (currentValueIfKnown) {
         currentValue = currentValueIfKnown;
     } else {
-        currentValue = parseInt(getCurrentValue(history));
+        currentValue = getCurrentValue(history);
     }
 
 

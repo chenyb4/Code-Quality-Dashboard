@@ -1,6 +1,6 @@
 "use client";
 import {useCallback} from "react";
-import {SearchSelect, SearchSelectItem, Select, SelectItem} from "@tremor/react";
+import {SearchSelect, SearchSelectItem} from "@tremor/react";
 import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 
 interface Props{
@@ -8,7 +8,6 @@ interface Props{
 }
 
 export function MySelect({teams}:Props) {
-
 
     const router = useRouter()
     const pathname = usePathname()
@@ -24,7 +23,7 @@ export function MySelect({teams}:Props) {
         [searchParams]
     )
 
-    const handleSelection=(value)=>{
+    const handleSelection=(value:string)=>{
         console.log(value);
         router.push(pathname + '?' + createQueryString('project', value))
     }
