@@ -4,8 +4,14 @@
  * @return current value
  */
 export function getCurrentValue(historyArray: { date: string, value: string }[]) {
-    const lastItem = historyArray[historyArray.length - 1];
-    return lastItem.value;
+    let currentValue;
+    if(historyArray.length>0){
+        currentValue=historyArray[historyArray.length - 1];
+    }else{
+        currentValue=0;
+    }
+
+    return currentValue;
 }
 
 
