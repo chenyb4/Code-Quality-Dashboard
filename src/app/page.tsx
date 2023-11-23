@@ -17,9 +17,9 @@ export default async function Home({searchParams}:Props) {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <MySelect teams={projects}/>
+            <MySelect teams={projects} defaultValue='launchpad'/>
 
-            <Dashboard component={searchParams.project||'authentication'}/>
+            <Dashboard component={searchParams.project||'launchpad'}/>
         </main>
     );
 }

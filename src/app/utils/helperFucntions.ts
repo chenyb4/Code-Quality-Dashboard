@@ -21,11 +21,15 @@ export function getCurrentValue(historyArray: { date: string, value: string }[])
  * @return the value of last value in the history array subtract the first value
  */
 export function getImprovement(historyArray: { date: string, value: string }[]): number {
-    const firstItem = historyArray[0];
-    const lastItem = historyArray[historyArray.length - 1];
-    const improvement = parseInt(lastItem.value) - parseInt(firstItem.value);
+    let improvement;
+    if(historyArray.length>0){
+        const firstItem = historyArray[0];
+        const lastItem = historyArray[historyArray.length - 1];
+        improvement = parseInt(lastItem.value) - parseInt(firstItem.value);
+    }else{
+        improvement=0;
+    }
     return improvement;
-
 }
 
 /**
@@ -34,7 +38,7 @@ export function getImprovement(historyArray: { date: string, value: string }[]):
  * @return a string of formatted date in the format of dd/mm/yyyy
  */
 export function formatDate(input: string) {
-    var datePart = input.match(/\d+/g),
+    let datePart = input.match(/\d+/g),
         year = datePart?.[0].substring(0), // get four digits
         month = datePart?.[1], day = datePart?.[2];
 
