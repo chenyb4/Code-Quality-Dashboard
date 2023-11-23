@@ -36,15 +36,6 @@ export async function Dashboard({component}:Props) {
             <MyCard title="Technical Debt" history={data.measures[2].history} isIncreasePositive={false}
                     formatToHoursAndMinutes={true}/>
 
-            <Card className='w-auto shadow-md border-gray-300 border'>
-                <Text
-                    className="text-3xl font-bold dark:text-white text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-emerald-400 float-left">
-                    Number of Deprecations
-                </Text>
-                <BarList data={dataBarList} className="mt-10" color='emerald' showAnimation={true}/>
-
-            </Card>
-
 
            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
 
