@@ -6,34 +6,47 @@ import {MyCard} from "@/app/components/MyCard";
 import {getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 
 interface Props {
-    component:string;
+    component: string;
 }
 
-export async function Dashboard({component}:Props) {
+export async function Dashboard({component}: Props) {
 
-    const data = await getDataByDaysAgo(30,component);
+    const data = await getDataByDaysAgo(30, component);
 
     //rules is a string, multiple rules can be divided by comma
     let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874');
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
-    let dataBarList = [
-        {
-            name: '',
-            value: numberOfDeprecationTS,
-        },
-    ]
+    let grid = null;
 
-    return (
-        <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
+    if (data.measures) {
+        grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
             <MyCard title="Code Coverage" history={data.measures[0].history} isIncreasePositive={true}
                     formatToPercentage={true}/>
             <MyCard title="Cognitive Complexity" history={data.measures[1].history} isIncreasePositive={false}/>
             <MyCard title="Technical Debt" history={data.measures[2].history} isIncreasePositive={false}
                     formatToHoursAndMinutes={true}/>
-           <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
+            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
         </Grid>
+    } else {
+
+        //show the cards but pass no history array
+        grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
+            <MyCard title="Code Coverage" isIncreasePositive={true}
+                    formatToPercentage={true}/>
+            <MyCard title="Cognitive Complexity" isIncreasePositive={false}/>
+            <MyCard title="Technical Debt" isIncreasePositive={false}
+                    formatToHoursAndMinutes={true}/>
+            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
+        </Grid>
+    }
+
+
+    return (
+        <>
+            {grid}
+        </>
     );
 }
 
