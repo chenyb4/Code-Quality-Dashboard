@@ -31,7 +31,7 @@ export function MySelect({teams,defaultValue}:Props) {
 
     return (
         <>
-            <div className="w-72">
+            <div className="w-72 mb-10">
                 <SearchSelect onValueChange={(value)=>handleSelection(value)} defaultValue={defaultValue}>
                     {teams.map((team,i)=>{
                         return(
