@@ -22,12 +22,14 @@ export function MyBadgeDelta({history, isIncreasePositive}: Props) {
         const firstValue = parseInt(history[0].value);
         let improvementInPercentage = Math.ceil((improvementAbsolute / firstValue) * 100);
 
-        if (improvement >= 0) {
+        if (improvement >0) {
             badgeDelta = <BadgeDelta className={styleForBadgeDelta} deltaType="moderateIncrease"
                                      isIncreasePositive={isIncreasePositive}>{improvementInPercentage}%</BadgeDelta>;
-        } else {
+        } else if(improvement<0) {
             badgeDelta = <BadgeDelta className={styleForBadgeDelta} deltaType="moderateDecrease"
                                      isIncreasePositive={isIncreasePositive}>{improvementInPercentage}%</BadgeDelta>;
+        }else{
+            badgeDelta = <Badge className={styleForBadgeDelta} color='emerald'>→0%</Badge>
         }
     }else{
         badgeDelta = <Badge className={styleForBadgeDelta} color='emerald'>no data</Badge>
