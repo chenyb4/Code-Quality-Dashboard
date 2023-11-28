@@ -14,7 +14,7 @@ export async function Dashboard({component}: Props) {
     const data = await getDataByDaysAgo(30, component);
 
     //rules is a string, multiple rules can be divided by comma
-    let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874');
+    let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874','OPEN,CONFIRMED,REOPENED,CLOSED');
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
