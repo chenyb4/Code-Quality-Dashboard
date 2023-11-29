@@ -8,7 +8,7 @@ import {getSonarQubeMeasuresHistory} from "@/app/utils/dataFetchers";
  * @param days number of days to add to it. can be negative whole number
  * @return the date after the days are added
  */
-function addDays(date:Date, days:number) {
+export function addDays(date:Date, days:number) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;

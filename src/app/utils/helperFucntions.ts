@@ -63,3 +63,25 @@ export function formatToNetherlandsTimeFormat(data: { date: string, value: strin
     });
     return dataFormatted;
 }
+
+
+export function formatDateAmericanToDutch(dateString:string) {
+    // Create a mapping for month names
+    const monthNames = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    // Split the input string into an array of parts
+    const parts = dateString.split(' ');
+
+    // Get day, month, and year
+    const day = parts[2].padStart(2, '0');
+    const month = (monthNames.indexOf(parts[1]) + 1).toString().padStart(2, '0'); // Months are zero-indexed
+    const year = parts[3];
+
+    // Format the date as 'DD/MM/YYYY'
+    const formattedDate = `${day}/${month}/${year}`;
+
+    return formattedDate;
+}
