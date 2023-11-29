@@ -3,10 +3,10 @@
  * @param historyArray the history array from SonarQube data
  * @return current value
  */
-export function getCurrentValue(historyArray: { date: string, value: string }[]):number {
+export function getCurrentValue(historyArray: { date: Date, value: number }[]):number {
     let currentValue:number;
     if(historyArray.length>0){
-        currentValue=parseInt(historyArray[historyArray.length - 1].value);
+        currentValue=historyArray[historyArray.length - 1].value;
     }else{
         currentValue=0;
     }
@@ -20,12 +20,12 @@ export function getCurrentValue(historyArray: { date: string, value: string }[])
  * @param historyArray the history array from SonarQube data
  * @return the value of last value in the history array subtract the first value
  */
-export function getImprovement(historyArray: { date: string, value: string }[]): number {
+export function getImprovement(historyArray: { date: Date, value: number }[]): number {
     let improvement;
     if(historyArray.length>0){
         const firstItem = historyArray[0];
         const lastItem = historyArray[historyArray.length - 1];
-        improvement = parseInt(lastItem.value) - parseInt(firstItem.value);
+        improvement = lastItem.value - firstItem.value;
     }else{
         improvement=0;
     }

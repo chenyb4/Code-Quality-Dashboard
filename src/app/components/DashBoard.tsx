@@ -18,19 +18,23 @@ export async function Dashboard({component}: Props) {
 
     // this is for converting the data into Date type and value into number type in all the data points in the data object's measures array
     // every measure in the measures array is an object with metric member of type string and history member of type array
-    // @ts-ignore
-    data.measures.forEach((measure) => {
-        //push every converted measure to the data variable
-        let tempMeasure: { metric: string, history: { date: Date, value: number }[] };
-        tempMeasure = {metric: measure.metric, history: []};
-        // every dp in the history array is an object with data and value members
-        measure.history.forEach((dp: { date: string, value: string }) => {
-            let tempDp: { date: Date, value: number };
-            tempDp = {date: new Date(dp.date), value: parseInt(dp.value)};
-            tempMeasure.history.push(tempDp);
+
+
+    if(data.measures){
+        data.measures.forEach((measure:{ metric: string, history: { date: string, value: string }[] }) => {
+            //push every converted measure to the data variable
+            let tempMeasure: { metric: string, history: { date: Date, value: number }[] };
+            tempMeasure = {metric: measure.metric, history: []};
+            // every dp in the history array is an object with data and value members
+            measure.history.forEach((dp: { date: string, value: string }) => {
+                let tempDp: { date: Date, value: number };
+                tempDp = {date: new Date(dp.date), value: parseFloat(dp.value)};
+                tempMeasure.history.push(tempDp);
+            });
+            measures.push(tempMeasure)
         });
-        measures.push(tempMeasure)
-    });
+    }
+
 
 
     // measures.forEach((measure)=>{
@@ -50,10 +54,10 @@ export async function Dashboard({component}: Props) {
 
     if (data.measures) {
         grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-            <MyCard title="Code Coverage" history={data.measures[0].history} isIncreasePositive={true}
+            <MyCard title="Code Coverage" history={measures[0].history} isIncreasePositive={true}
                     formatToPercentage={true}/>
-            <MyCard title="Cognitive Complexity" history={data.measures[1].history} isIncreasePositive={false}/>
-            <MyCard title="Technical Debt" history={data.measures[2].history} isIncreasePositive={false}
+            <MyCard title="Cognitive Complexity" history={measures[1].history} isIncreasePositive={false}/>
+            <MyCard title="Technical Debt" history={measures[2].history} isIncreasePositive={false}
                     formatToHoursAndMinutes={true}/>
             <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
         </Grid>

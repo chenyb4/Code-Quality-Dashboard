@@ -4,7 +4,7 @@ import React from "react";
 
 
 interface Props {
-    history?: { date: string, value: string }[];
+    history?: { date: Date, value: number }[];
     formatToPercentage?: boolean;
     formatToHoursAndMinutes?: boolean;
     currentValueIfKnown?: number;
