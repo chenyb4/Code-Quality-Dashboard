@@ -4,6 +4,7 @@ import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
 
 import {getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
+import {metrics} from "@/app/config/metricsConfig";
 
 interface Props {
     component: string;
@@ -12,7 +13,16 @@ interface Props {
 
 export async function Dashboard({component}: Props) {
 
-    const data = await getDataByDaysAgo(30, component);
+    const metricsForSonarQube=[metrics.codeCoverage,metrics.cognitiveComplexity,metrics.technicalDebt];
+
+    let metricsStringForSonarQube="";
+    metricsForSonarQube.forEach((metric)=>{
+        metricsStringForSonarQube+=metric.key;
+        metricsStringForSonarQube+=",";
+    })
+
+
+    const data = await getDataByDaysAgo(30, component,metricsStringForSonarQube);
 
     let measures: { metric: string, history: { date: Date, value: number }[] }[] = [];
 
@@ -20,8 +30,8 @@ export async function Dashboard({component}: Props) {
     // every measure in the measures array is an object with metric member of type string and history member of type array
 
 
-    if(data.measures){
-        data.measures.forEach((measure:{ metric: string, history: { date: string, value: string }[] }) => {
+    if (data.measures) {
+        data.measures.forEach((measure: { metric: string, history: { date: string, value: string }[] }) => {
             //push every converted measure to the data variable
             let tempMeasure: { metric: string, history: { date: Date, value: number }[] };
             tempMeasure = {metric: measure.metric, history: []};
@@ -34,7 +44,6 @@ export async function Dashboard({component}: Props) {
             measures.push(tempMeasure)
         });
     }
-
 
 
     // measures.forEach((measure)=>{
@@ -54,11 +63,18 @@ export async function Dashboard({component}: Props) {
 
     if (data.measures) {
         grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-            <MyCard title="Code Coverage" history={measures[0].history} isIncreasePositive={true}
-                    formatToPercentage={true}/>
-            <MyCard title="Cognitive Complexity" history={measures[1].history} isIncreasePositive={false}/>
-            <MyCard title="Technical Debt" history={measures[2].history} isIncreasePositive={false}
-                    formatToHoursAndMinutes={true}/>
+            <MyCard title={metrics.codeCoverage.title} history={measures[0].history}
+                    isIncreasePositive={metrics.codeCoverage.isIncreasePositive}
+                    formatToPercentage={metrics.codeCoverage.formatToPercentage}
+                    formatToHoursAndMinutes={metrics.codeCoverage.formatToHoursAndMinutes}/>
+            <MyCard title={metrics.cognitiveComplexity.title} history={measures[1].history}
+                    isIncreasePositive={metrics.cognitiveComplexity.isIncreasePositive}
+                    formatToPercentage={metrics.cognitiveComplexity.formatToPercentage}
+                    formatToHoursAndMinutes={metrics.cognitiveComplexity.formatToHoursAndMinutes}/>
+            <MyCard title={metrics.technicalDebt.title} history={measures[2].history}
+                    isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
+                    formatToPercentage={metrics.technicalDebt.formatToPercentage}
+                    formatToHoursAndMinutes={metrics.technicalDebt.formatToHoursAndMinutes}/>
             <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
         </Grid>
     } else {
