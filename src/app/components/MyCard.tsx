@@ -6,7 +6,7 @@ import {MyBadgeDelta} from "@/app/components/MyBadgeDelta";
 
 interface Props {
     title: string;
-    history?: { date: string, value: string }[];
+    history?: { date: Date, value: number }[];
     isIncreasePositive?: boolean;
     formatToPercentage?: boolean;
     formatToHoursAndMinutes?: boolean;

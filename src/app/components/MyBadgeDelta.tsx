@@ -2,7 +2,7 @@ import {getImprovement} from "@/app/utils/helperFucntions";
 import {Badge, BadgeDelta} from "@tremor/react";
 
 interface Props {
-    history: { date: string, value: string }[];
+    history: { date: Date, value: number }[];
     isIncreasePositive: boolean;
 }
 
@@ -19,7 +19,7 @@ export function MyBadgeDelta({history, isIncreasePositive}: Props) {
         let improvement = getImprovement(history);
         let improvementAbsolute = Math.abs(improvement);
 
-        const firstValue = parseInt(history[0].value);
+        const firstValue = history[0].value;
         let improvementInPercentage = Math.ceil((improvementAbsolute / firstValue) * 100);
 
         if (improvement >0) {
