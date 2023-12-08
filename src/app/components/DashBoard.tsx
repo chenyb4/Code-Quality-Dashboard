@@ -75,7 +75,7 @@ export async function Dashboard({component}: Props) {
                     isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
                     formatToPercentage={metrics.technicalDebt.formatToPercentage}
                     formatToHoursAndMinutes={metrics.technicalDebt.formatToHoursAndMinutes}/>
-            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
+            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS} component={component} metricKey={metrics.numberOfDeprecations.key} />
         </Grid>
     } else {
 

@@ -23,7 +23,7 @@ export const metrics={
     },
     "numberOfDeprecations":{
         title:"Number of Deprecations",
-        key:"",
+        key:"deprecation",
         isIncreasePositive:false,
         formatToPercentage:false,
         formatToHoursAndMinutes:false,
