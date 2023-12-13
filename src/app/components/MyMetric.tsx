@@ -1,20 +1,19 @@
-import {getCurrentValue} from "@/app/utils/helperFucntions";
+import {formatCurrentValue, getCurrentValue} from "@/app/utils/helperFucntions";
 import {Metric} from "@tremor/react";
 import React from "react";
+import {FormattingType} from "@/app/utils/FormattingType";
 
 
 interface Props {
     history?: { date: Date, value: number }[];
-    formatToPercentage?: boolean;
-    formatToHoursAndMinutes?: boolean;
+    formattingType?:FormattingType
     currentValueIfKnown?: number;
 
 }
 
 export function MyMetric({
                              history=[],
-                             formatToHoursAndMinutes,
-                             formatToPercentage,
+                             formattingType,
                              currentValueIfKnown,
                          }: Props) {
     const styleForMetric = "text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2";
@@ -32,27 +31,15 @@ export function MyMetric({
             currentValue = getCurrentValue(history);
         }
 
+        let metricString='';
 
+        metricString=formatCurrentValue(currentValue,formattingType);
 
-        if (formatToHoursAndMinutes) {
-            hours = Math.floor(currentValue / 60);
-            minutes = currentValue % 60;
-        }
-        let persentageMark = null;
-        if (formatToPercentage) {
-            persentageMark = "%";
-        }
+        metric = <Metric className={styleForMetric}>{metricString}</Metric>
 
 
 
-        if (formatToHoursAndMinutes) {
-            let currentMinutesInTotal = currentValue;
-            hours = Math.floor(currentMinutesInTotal / 60);
-            minutes = currentMinutesInTotal % 60;
-            metric = <Metric className={styleForMetric}>{hours}h {minutes}m</Metric>
-        } else {
-            metric = <Metric className={styleForMetric}>{currentValue}{persentageMark}</Metric>
-        }
+
     }else{
         metric = <Metric className={styleForMetric}>no data</Metric>
     }
