@@ -4,19 +4,14 @@ import {MyLineChart} from "@/app/components/MyLineChart";
 import React from "react";
 import {MyMetric} from "@/app/components/MyMetric";
 import {MyBadgeDelta} from "@/app/components/MyBadgeDelta";
-
+import {FormattingType} from "@/app/utils/FormattingType";
 
 
 interface Props {
     title: string;
     history?: { date: Date, value: number }[];
-    isIncreasePositive?: boolean;
-    formatToPercentage?: boolean;
-    formatToHoursAndMinutes?: boolean;
-    currentValueIfKnown?: number;
-    component?: string;
-    metricKey?: string;
-
+    isIncreasePositive: boolean;
+    formattingType: FormattingType;
 }
 
 
@@ -24,66 +19,21 @@ export function MyCard({
                            title,
                            history,
                            isIncreasePositive = true,
-                           formatToHoursAndMinutes = false,
-                           formatToPercentage = false,
-                           currentValueIfKnown = 0,
-                           component,
-                           metricKey,
+                           formattingType,
                        }: Props) {
-
-
     let badgeDelta = null;
-    let metric;
+    let metric=null;
     let lineChart = null;
-    let button = null;
-    let form = null;
 
-    const storeToDb = async () => {
-        console.log("onclick function is called")
-        let form = document.getElementById("myForm");
-
-        let formData = new FormData(form);
-        let jsonData = {};
-
-        formData.forEach(function (value, key) {
-            jsonData[key] = value;
-        });
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:3000/api", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Handle the response
-                console.log(xhr.responseText);
-            }
-        };
-        xhr.send(JSON.stringify(jsonData));
-    }
-
-
-    if (history) {
-        metric = MyMetric({
-            history,
-            formatToHoursAndMinutes,
-            formatToPercentage,
-        });
+    if(history){
+        metric = MyMetric({history, formattingType,});
         badgeDelta = MyBadgeDelta({history, isIncreasePositive});
         lineChart = <MyLineChart historyArray={history}/>;
-    } else {
-        metric = MyMetric({currentValueIfKnown,});
-
-        form = <form id="myForm">
-            <input type="hidden" id="projectKey" name="projectKey" value={component} readOnly={true} required/>
-            <input type="hidden" id="metricKey" name="metricKey" value={metricKey} readOnly={true} required/>
-            <input type="hidden" id="date" name="date" value={Math.floor((new Date()).getTime() / 1000)} readOnly={true} required/>
-            <input type="hidden" id="value" name="value" value={currentValueIfKnown} readOnly={true} required/>
-
-            <Button size="xs" color="emerald" className="m-10" onClick={storeToDb}>store
-                current value to DB</Button>
-        </form>
+    }else{
+        metric=<MyMetric/>
     }
+
+
 
     return (
         <Card className='w-96 shadow-md border-gray-300 border'>
@@ -94,7 +44,7 @@ export function MyCard({
             {badgeDelta}
             {metric}
             {lineChart}
-            {form}
+
         </Card>
     )
 }

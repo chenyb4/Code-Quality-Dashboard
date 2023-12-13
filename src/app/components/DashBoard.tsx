@@ -13,16 +13,16 @@ interface Props {
 
 export async function Dashboard({component}: Props) {
 
-    const metricsForSonarQube=[metrics.codeCoverage,metrics.cognitiveComplexity,metrics.technicalDebt];
+    const metricsForSonarQube = [metrics.codeCoverage, metrics.cognitiveComplexity, metrics.technicalDebt];
 
-    let metricsStringForSonarQube="";
-    metricsForSonarQube.forEach((metric)=>{
-        metricsStringForSonarQube+=metric.key;
-        metricsStringForSonarQube+=",";
+    let metricsStringForSonarQube = "";
+    metricsForSonarQube.forEach((metric) => {
+        metricsStringForSonarQube += metric.key;
+        metricsStringForSonarQube += ",";
     })
 
 
-    const data = await getDataByDaysAgo(30, component,metricsStringForSonarQube);
+    const data = await getDataByDaysAgo(30, component, metricsStringForSonarQube);
 
     let measures: { metric: string, history: { date: Date, value: number }[] }[] = [];
 
@@ -65,28 +65,32 @@ export async function Dashboard({component}: Props) {
         grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
             <MyCard title={metrics.codeCoverage.title} history={measures[0].history}
                     isIncreasePositive={metrics.codeCoverage.isIncreasePositive}
-                    formatToPercentage={metrics.codeCoverage.formatToPercentage}
-                    formatToHoursAndMinutes={metrics.codeCoverage.formatToHoursAndMinutes}/>
+                    formattingType={metrics.codeCoverage.formatting}
+            />
             <MyCard title={metrics.cognitiveComplexity.title} history={measures[1].history}
                     isIncreasePositive={metrics.cognitiveComplexity.isIncreasePositive}
-                    formatToPercentage={metrics.cognitiveComplexity.formatToPercentage}
-                    formatToHoursAndMinutes={metrics.cognitiveComplexity.formatToHoursAndMinutes}/>
+                    formattingType={metrics.cognitiveComplexity.formatting}/>
             <MyCard title={metrics.technicalDebt.title} history={measures[2].history}
                     isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
-                    formatToPercentage={metrics.technicalDebt.formatToPercentage}
-                    formatToHoursAndMinutes={metrics.technicalDebt.formatToHoursAndMinutes}/>
-            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS} component={component} metricKey={metrics.numberOfDeprecations.key} />
+                    formattingType={metrics.technicalDebt.formatting}/>
+
         </Grid>
     } else {
 
         //show the cards but pass no history array
+        //has to be done this way, otherwise when reading history property there will be run time error
         grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-            <MyCard title="Code Coverage" isIncreasePositive={true}
-                    formatToPercentage={true}/>
-            <MyCard title="Cognitive Complexity" isIncreasePositive={false}/>
-            <MyCard title="Technical Debt" isIncreasePositive={false}
-                    formatToHoursAndMinutes={true}/>
-            <MyCard title="Number of Deprecations" currentValueIfKnown={numberOfDeprecationTS}/>
+            <MyCard title={metrics.codeCoverage.title}
+                    isIncreasePositive={metrics.codeCoverage.isIncreasePositive}
+                    formattingType={metrics.codeCoverage.formatting}
+            />
+            <MyCard title={metrics.cognitiveComplexity.title}
+                    isIncreasePositive={metrics.cognitiveComplexity.isIncreasePositive}
+                    formattingType={metrics.cognitiveComplexity.formatting}/>
+            <MyCard title={metrics.technicalDebt.title}
+                    isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
+                    formattingType={metrics.technicalDebt.formatting}/>
+
         </Grid>
     }
 
