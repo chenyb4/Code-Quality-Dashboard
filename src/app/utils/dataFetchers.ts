@@ -33,6 +33,17 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
 
 
 
+/**
+ * Retrieves SonarQube issues based on specified rules.
+ *
+ * @param {string} component - The component of the SonarQube project.
+ * @param {string} ps - The project or project branch.
+ * @param {string} rules - The rules to filter the issues.
+ * @param {string} statuses - The statuses to filter the issues.
+ *
+ * @returns {Promise<Object>} - A promise that resolves to the data containing the SonarQube issues.
+ * @throws {Error} - If the fetch fails or the data is empty.
+ */
 export async function getSonarQubeIssuesByRules(component: string, ps: string, rules: string, statuses:string) {
     const resp = await fetch('https://sonarqube.app1.printdeal.cloud/api/issues/search?' + new URLSearchParams({
         componentKeys: component,
@@ -57,6 +68,12 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
 
 
 
+/**
+ * Fetches projects from SonarQube.
+ *
+ * @returns {Promise} A promise that resolves with the fetched projects from SonarQube.
+ * @throws {Error} If there is an error fetching the projects.
+ */
 export async function getProjectsFromSonarQube() {
     const resp = await fetch('https://sonarqube.app1.printdeal.cloud/api/components/search?' + new URLSearchParams({
         qualifiers:'TRK',
@@ -66,6 +83,34 @@ export async function getProjectsFromSonarQube() {
             headers: {
                 'Content-type': 'application/json',
                 'authorization': 'Basic ' + SONARQUBE_TOKEN,
+            }
+        });
+    let data = resp.json();
+    if (!data) {
+        throw new Error('Failed to fetch');
+    }
+    return data;
+}
+
+
+/**
+ * Retrieves measure history from the database based on the project key and metric key.
+ *
+ * @param {string} projectKey - The project key.
+ * @param {string} metricKey - The metric key.
+ *
+ * @return {Promise} - A promise that resolves to the measure history data from the database.
+ * @throws {Error} - If failed to fetch the measure history data.
+ */
+export async function getMeasureHistoryFromDb(projectKey:string, metricKey:string){
+    const resp = await fetch('http://localhost:3000/api?' + new URLSearchParams({
+        projectKey: projectKey,
+        metricKey: metricKey,
+    }),
+        {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
             }
         });
     let data = resp.json();
