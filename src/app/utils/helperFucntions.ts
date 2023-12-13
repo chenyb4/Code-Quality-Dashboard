@@ -1,3 +1,6 @@
+import {FormattingType} from "@/app/utils/FormattingType";
+import {number} from "prop-types";
+
 /**
  * get the current value which is the last value in the history array
  * @param historyArray the history array from SonarQube data
@@ -96,4 +99,30 @@ export function formatDbHistoryArrayForCard(history:{date: number, value: number
         };
     });
     return formattedHistory;
+}
+
+
+function numberWithCommas(x:number) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function formatCurrentValue(value:number,formattingType:FormattingType):string{
+    let formattedString='';
+    if(formattingType==FormattingType.PERCENTAGE){
+        formattedString=value.toString();
+        formattedString+="%";
+    }else if(formattingType==FormattingType.ABSOLUTE){
+        formattedString=numberWithCommas(value);
+    }else if(formattingType==FormattingType.HOURSANDMINUTES){
+        let minutes = null;
+        let hours = null;
+        minutes = value % 60;
+        hours = Math.floor(value / 60);
+        formattedString=hours.toString();
+        formattedString+="h ";
+        formattedString+=minutes.toString();
+        formattedString+="m";
+
+    }
+    return formattedString
 }
