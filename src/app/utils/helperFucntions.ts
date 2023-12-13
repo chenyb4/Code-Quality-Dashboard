@@ -85,3 +85,15 @@ export function formatDateAmericanToDutch(dateString:string) {
 
     return formattedDate;
 }
+
+export function formatDbHistoryArrayForCard(history:{date: number, value: number}[]){
+    const formattedHistory: { date: Date, value: number }[] = history.map((item: { date: number, value: number }) => {
+        let d=new Date(0);
+        d.setUTCSeconds(item.date);
+        return {
+            date: d,
+            value: item.value
+        };
+    });
+    return formattedHistory;
+}
