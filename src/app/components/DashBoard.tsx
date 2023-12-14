@@ -3,8 +3,10 @@ import React from "react";
 import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {MyCard} from "@/app/components/MyCard";
 
-import {getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
+import {getMeasureHistoryFromDb, getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 import {metrics} from "@/app/config/metricsConfig";
+import {DbCard} from "@/app/components/DbCard";
+import {formatDbHistoryArrayForCard} from "@/app/utils/helperFucntions";
 
 interface Props {
     component: string;
@@ -59,6 +61,11 @@ export async function Dashboard({component}: Props) {
 
     let numberOfDeprecationTS = deprecationData.issues.length;
 
+    let deprecationHistory=await getMeasureHistoryFromDb(component,metrics.numberOfDeprecations.key);
+    let deprecationHistoryFormatted=formatDbHistoryArrayForCard(deprecationHistory);
+
+    let deprecationCard=<DbCard title={metrics.numberOfDeprecations.title} history={deprecationHistoryFormatted} isIncreasePositive={metrics.numberOfDeprecations.isIncreasePositive} formattingType={metrics.numberOfDeprecations.formatting} currentValue={numberOfDeprecationTS} component={component} metricKey={metrics.numberOfDeprecations.key}/>
+
     let grid = null;
 
     if (data.measures) {
@@ -73,7 +80,7 @@ export async function Dashboard({component}: Props) {
             <MyCard title={metrics.technicalDebt.title} history={measures[2].history}
                     isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
                     formattingType={metrics.technicalDebt.formatting}/>
-
+            {deprecationCard}
         </Grid>
     } else {
 
@@ -90,7 +97,7 @@ export async function Dashboard({component}: Props) {
             <MyCard title={metrics.technicalDebt.title}
                     isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
                     formattingType={metrics.technicalDebt.formatting}/>
-
+            {deprecationCard}
         </Grid>
     }
 

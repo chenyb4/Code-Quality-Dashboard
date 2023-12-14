@@ -106,7 +106,7 @@ function numberWithCommas(x:number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function formatCurrentValue(value:number,formattingType:FormattingType):string{
+export function formatCurrentValue(value:number,formattingType?:FormattingType):string{
     let formattedString='';
     if(formattingType==FormattingType.PERCENTAGE){
         formattedString=value.toString();
