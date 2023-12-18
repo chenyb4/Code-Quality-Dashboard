@@ -5,10 +5,10 @@ import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 
 interface Props{
     teams:{key:string,name:string,qualifier:string,project:string}[];
-    defaultValue:string;
+    //defaultValue:string;
 }
 
-export function MySelect({teams,defaultValue}:Props) {
+export function MySelect({teams}:Props) {
 
     const router = useRouter()
     const pathname = usePathname()
@@ -32,7 +32,7 @@ export function MySelect({teams,defaultValue}:Props) {
     return (
         <>
             <div className="w-72 mb-10">
-                <SearchSelect onValueChange={(value)=>handleSelection(value)} defaultValue={defaultValue}>
+                <SearchSelect onValueChange={(value)=>handleSelection(value)}>
                     {teams.map((team,i)=>{
                         return(
                             <SearchSelectItem value={team.name} key={i}>
