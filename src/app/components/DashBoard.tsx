@@ -1,6 +1,6 @@
 import {Grid} from "@tremor/react";
 import React from "react";
-import {getDataByDaysAgo} from "@/app/utils/dataRangePicker";
+import {addDays, getDataByDaysAgo} from "@/app/utils/dataRangePicker";
 import {SonarQubeCard} from "@/app/components/SonarQubeCard";
 import {getMeasureHistoryFromDb, getSonarQubeIssuesByRules} from "@/app/utils/dataFetchers";
 import {metrics} from "@/app/config/metricsConfig";
@@ -56,7 +56,10 @@ export async function Dashboard({component}: Props) {
     let deprecationData = await getSonarQubeIssuesByRules(component, '500', 'typescript:S1874', 'OPEN,CONFIRMED,REOPENED,CLOSED');
     let numberOfDeprecationTS = deprecationData.issues.length;
 
-    let deprecationHistory = await getMeasureHistoryFromDb(component, metrics.numberOfDeprecations.key);
+    let currentDate=new Date();
+    let fromDate=addDays(currentDate,0-30);
+
+    let deprecationHistory = await getMeasureHistoryFromDb(component, metrics.numberOfDeprecations.key,Math.floor((fromDate).getTime() / 1000));
     let deprecationHistoryFormatted = formatDbHistoryArrayForCard(deprecationHistory);
     let deprecationCard = <DbCard title={metrics.numberOfDeprecations.title} history={deprecationHistoryFormatted}
                                   isIncreasePositive={metrics.numberOfDeprecations.isIncreasePositive}

@@ -90,17 +90,28 @@ export async function getProjectsFromSonarQube() {
 }
 
 /**
- * Retrieves measure history from the database for a specific project and metric.
+ * Retrieves the measurement history from the database for a specific project and metric.
  *
- * @param {string} projectKey - The key of the project to retrieve measure history for.
- * @param {string} metricKey - The key of the metric to retrieve measure history for.
- * @return {Promise<Array>} A promise that resolves to an array of measure history items.
+ * @param {string} projectKey - The key of the project.
+ * @param {string} metricKey - The key of the metric.
+ * @param {number} [from] - Optional. The starting date to filter the results. Need to be in epoch seconds.
+ * @param {number} [till] - Optional. The ending date to filter the results. Need to be in epoch seconds.
+ * @return {Promise<Array<Object>>} - A promise that resolves to an array of objects representing the measurement history.
  */
-export async function getMeasureHistoryFromDb(projectKey:string, metricKey:string){
+export async function getMeasureHistoryFromDb(projectKey:string, metricKey:string, from?:number, till?:number){
 
     let sql="SELECT * FROM history WHERE";
     sql+=" projectKey='"+projectKey+"' AND";
-    sql+=" metricKey='"+metricKey+"' ORDER BY date";
+    sql+=" metricKey='"+metricKey+"'";
+
+    if(from){
+        sql += " AND date >= " + from;
+    }
+    if(till){
+        sql += " AND date <= " + till;
+    }
+
+    sql+=" ORDER BY date";
 
     let db = null;
 
@@ -110,7 +121,6 @@ export async function getMeasureHistoryFromDb(projectKey:string, metricKey:strin
             driver: sqlite3.Database,
         });
     }
-
     const items = await db.all(sql);
     return items;
 }
