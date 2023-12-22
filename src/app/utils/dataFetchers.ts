@@ -1,3 +1,6 @@
+import {open, Database} from "sqlite";
+import sqlite3 from "sqlite3";
+
 const {SONARQUBE_TOKEN} = process.env;
 
 
@@ -93,29 +96,29 @@ export async function getProjectsFromSonarQube() {
 }
 
 
+
 /**
- * Retrieves measure history from the database based on the project key and metric key.
+ * Retrieves measure history from the database for a specific project and metric.
  *
- * @param {string} projectKey - The project key.
- * @param {string} metricKey - The metric key.
- *
- * @return {Promise} - A promise that resolves to the measure history data from the database.
- * @throws {Error} - If failed to fetch the measure history data.
+ * @param {string} projectKey - The key of the project to retrieve measure history for.
+ * @param {string} metricKey - The key of the metric to retrieve measure history for.
+ * @return {Promise<Array>} A promise that resolves to an array of measure history items.
  */
 export async function getMeasureHistoryFromDb(projectKey:string, metricKey:string){
-    const resp = await fetch('http://localhost:3000/api?' + new URLSearchParams({
-        projectKey: projectKey,
-        metricKey: metricKey,
-    }),
-        {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            }
+
+    let sql="SELECT * FROM history WHERE";
+    sql+=" projectKey='"+projectKey+"' AND";
+    sql+=" metricKey='"+metricKey+"' ORDER BY date";
+
+    let db = null;
+
+    if (!db) {
+        db = await open({
+            filename: "./src/app/db/db.db",
+            driver: sqlite3.Database,
         });
-    let data = resp.json();
-    if (!data) {
-        throw new Error('Failed to fetch');
     }
-    return data;
+
+    const items = await db.all(sql);
+    return items;
 }

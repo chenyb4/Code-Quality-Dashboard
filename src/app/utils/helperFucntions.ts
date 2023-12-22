@@ -89,6 +89,12 @@ export function formatDateAmericanToDutch(dateString:string) {
     return formattedDate;
 }
 
+/**
+ * Formats the history array from the database for a card.
+ *
+ * @param {Array} history - The history array from the database with dates in epoch seconds.
+ * @return {Array} - The formatted history array for the card with dates in good format.
+ */
 export function formatDbHistoryArrayForCard(history:{date: number, value: number}[]){
     const formattedHistory: { date: Date, value: number }[] = history.map((item: { date: number, value: number }) => {
         let d=new Date(0);

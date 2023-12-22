@@ -25,7 +25,7 @@ export function MySelect({teams}:Props) {
     )
 
     const handleSelection=(value:string)=>{
-        console.log(value);
+       // console.log(value);
         router.push(pathname + '?' + createQueryString('project', value))
     }
 
@@ -40,7 +40,6 @@ export function MySelect({teams}:Props) {
                             </SearchSelectItem>
                         );
                     })}
-
                 </SearchSelect>
             </div>
         </>

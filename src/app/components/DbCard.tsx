@@ -7,7 +7,7 @@ import {MyBadgeDelta} from "@/app/components/MyBadgeDelta";
 import {FormattingType} from "@/app/utils/FormattingType";
 
 const storeToDb = async () => {
-    console.log("onclick function is called")
+
     let form = document.getElementById("myForm");
 
     let formData = new FormData(form);

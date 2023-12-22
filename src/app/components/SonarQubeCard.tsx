@@ -15,7 +15,7 @@ interface Props {
 }
 
 
-export function MyCard({
+export function SonarQubeCard({
                            title,
                            history,
                            isIncreasePositive = true,
