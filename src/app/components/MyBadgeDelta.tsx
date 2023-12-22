@@ -12,8 +12,6 @@ export function MyBadgeDelta({history, isIncreasePositive}: Props) {
 
     let badgeDelta = null;
 
-
-
     if(history.length>1){
         //last value - first value
         let improvement = getImprovement(history);
@@ -34,9 +32,7 @@ export function MyBadgeDelta({history, isIncreasePositive}: Props) {
     }else{
         badgeDelta = <Badge className={styleForBadgeDelta} color='emerald'>no data</Badge>
     }
-
-
-
+    
     return (
         <>
             {badgeDelta}

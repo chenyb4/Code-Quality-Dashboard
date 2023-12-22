@@ -3,7 +3,6 @@ import {Metric} from "@tremor/react";
 import React from "react";
 import {FormattingType} from "@/app/utils/FormattingType";
 
-
 interface Props {
     history?: { date: Date, value: number }[];
     formattingType?:FormattingType
@@ -23,31 +22,18 @@ export function MyMetric({
     let hours = null;
     let currentValue = null;
 
-
     if(history.length>0||currentValueIfKnown){
         if (currentValueIfKnown) {
             currentValue = currentValueIfKnown;
         } else {
             currentValue = getCurrentValue(history);
         }
-
         let metricString='';
-
         metricString=formatCurrentValue(currentValue,formattingType);
-
         metric = <Metric className={styleForMetric}>{metricString}</Metric>
-
-
-
-
     }else{
         metric = <Metric className={styleForMetric}>no data</Metric>
     }
-
-
-
-
-
 
     return (
         <>

@@ -7,8 +7,6 @@ interface Props {
 
 export function MyLineChart({historyArray}: Props) {
 
-    //let historyArrayFormatted = formatToNetherlandsTimeFormat(historyArray);
-
     let historyArrayConverted:{ date: string, value: string }[]=[];
 
     historyArray.forEach((dp)=>{

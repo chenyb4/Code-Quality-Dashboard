@@ -80,7 +80,6 @@ export async function Dashboard({component}: Props) {
             {deprecationCard}
         </Grid>
     } else {
-
         //show the cards but pass no history array
         //has to be done this way, otherwise when reading history property there will be run time error
         grid = <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
@@ -96,7 +95,6 @@ export async function Dashboard({component}: Props) {
             {deprecationCard}
         </Grid>
     }
-
 
     return (
         <>

@@ -6,12 +6,9 @@ import {Bold, Subtitle} from "@tremor/react";
 import {addDays} from "@/app/utils/dataRangePicker";
 import {formatDate, formatDateAmericanToDutch, formatToNetherlandsTimeFormat} from "@/app/utils/helperFucntions";
 
-
-
 interface Props{
     searchParams:{project:string}
 }
-
 
 export default async function Home({searchParams}:Props) {
 
@@ -22,9 +19,6 @@ export default async function Home({searchParams}:Props) {
     fromDateString=formatDate(fromDateString);
     let currentDateString=currentDate.toDateString();
     currentDateString=formatDateAmericanToDutch(currentDateString);
-
-
-
 
     let projects = projectsData.components;
 

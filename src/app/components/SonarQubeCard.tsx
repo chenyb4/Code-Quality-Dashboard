@@ -1,4 +1,3 @@
-'use client';
 import {Button, Card, Text} from "@tremor/react";
 import {MyLineChart} from "@/app/components/MyLineChart";
 import React from "react";
@@ -6,14 +5,12 @@ import {MyMetric} from "@/app/components/MyMetric";
 import {MyBadgeDelta} from "@/app/components/MyBadgeDelta";
 import {FormattingType} from "@/app/utils/FormattingType";
 
-
 interface Props {
     title: string;
     history?: { date: Date, value: number }[];
     isIncreasePositive: boolean;
     formattingType: FormattingType;
 }
-
 
 export function SonarQubeCard({
                            title,
@@ -32,8 +29,6 @@ export function SonarQubeCard({
     }else{
         metric=<MyMetric/>
     }
-
-
 
     return (
         <Card className='w-96 shadow-md border-gray-300 border'>

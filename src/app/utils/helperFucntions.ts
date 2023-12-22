@@ -17,7 +17,6 @@ export function getCurrentValue(historyArray: { date: Date, value: number }[]):n
     return currentValue;
 }
 
-
 /**
  * last value in the history array subtract the first value
  * @param historyArray the history array from SonarQube data
@@ -48,7 +47,6 @@ export function formatDate(input: string) {
     return day + '/' + month + '/' + year;
 }
 
-
 /**
  * converts the date and time format in SonarQube data from yyyy-mm-dd to dd/mm/yyyy
  * @param data the history array from the SonarQube data
@@ -68,6 +66,13 @@ export function formatToNetherlandsTimeFormat(data: { date: string, value: strin
 }
 
 
+/**
+ * Converts a date string from American format (MMM DD YYYY) to Dutch format (DD/MM/YYYY).
+ *
+ * @param {string} dateString - The date string to be converted.
+ *
+ * @return {string} - The date string converted to Dutch format.
+ */
 export function formatDateAmericanToDutch(dateString:string) {
     // Create a mapping for month names
     const monthNames = [
@@ -108,10 +113,22 @@ export function formatDbHistoryArrayForCard(history:{date: number, value: number
 }
 
 
+/**
+ * Converts a number into a string representation with commas separating thousands.
+ *
+ * @param {number} x - The number to format with commas.
+ * @return {string} - The formatted string with commas.
+ */
 function numberWithCommas(x:number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+/**
+ * Formats the given value based on the provided formatting type.
+ * @param {number} value - The value to format.
+ * @param {FormattingType} [formattingType] - The formatting type.
+ * @return {string} - The formatted value as a string.
+ */
 export function formatCurrentValue(value:number,formattingType?:FormattingType):string{
     let formattedString='';
     if(formattingType==FormattingType.PERCENTAGE){

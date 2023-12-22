@@ -3,7 +3,6 @@ import sqlite3 from "sqlite3";
 
 const {SONARQUBE_TOKEN} = process.env;
 
-
 /**
  * fetch SonarQube measures history from SonarQube web api
  * @param component the name of the project we want to fetch data for, e.g. "launchpad".
@@ -33,8 +32,6 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
     }
     return data;
 }
-
-
 
 /**
  * Retrieves SonarQube issues based on specified rules.
@@ -68,9 +65,6 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
     return data;
 }
 
-
-
-
 /**
  * Fetches projects from SonarQube.
  *
@@ -94,8 +88,6 @@ export async function getProjectsFromSonarQube() {
     }
     return data;
 }
-
-
 
 /**
  * Retrieves measure history from the database for a specific project and metric.

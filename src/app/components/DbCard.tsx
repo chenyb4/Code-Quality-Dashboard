@@ -30,7 +30,6 @@ const storeToDb = async () => {
     xhr.send(JSON.stringify(jsonData));
 }
 
-
 interface Props {
     title: string;
     history?: { date: Date, value: number }[];
@@ -42,7 +41,6 @@ interface Props {
 
 }
 
-
 export function DbCard({
                            title,
                            history,
@@ -53,14 +51,15 @@ export function DbCard({
                            metricKey,
                        }: Props) {
 
-//this might not be shown
+    //these two might not be shown
+    //depending on whether there are data points in DB
     let badgeDelta = null;
-
-    let metric;
     let lineChart = null;
+
+    //these are definitely shown
+    let metric;
     let button = null;
     let form = null;
-
 
     //form and metric are always there
     //because this is DB card, metric always use currentValue that is known
@@ -77,8 +76,7 @@ export function DbCard({
             current value to DB</Button>
     </form>
 
-
-//if there is a history from db, there should be a badge and line chart
+    //if there is a history from db, there should be a badge and line chart
     if (history) {
         badgeDelta = <MyBadgeDelta history={history} isIncreasePositive={isIncreasePositive}/>;
         lineChart = <MyLineChart historyArray={history}/>;

@@ -1,6 +1,4 @@
-
 import {getSonarQubeMeasuresHistory} from "@/app/utils/dataFetchers";
-
 
 /**
  * add days to a date provided
@@ -13,8 +11,6 @@ export function addDays(date:Date, days:number) {
     result.setDate(result.getDate() + days);
     return result;
 }
-
-
 
 /**
  * get data by data from how many days ago we want to see

@@ -1,4 +1,3 @@
-
 import {FormattingType} from "@/app/utils/FormattingType";
 export const metrics={
     "codeCoverage":{

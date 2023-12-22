@@ -5,7 +5,6 @@ import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 
 interface Props{
     teams:{key:string,name:string,qualifier:string,project:string}[];
-    //defaultValue:string;
 }
 
 export function MySelect({teams}:Props) {
@@ -25,7 +24,6 @@ export function MySelect({teams}:Props) {
     )
 
     const handleSelection=(value:string)=>{
-       // console.log(value);
         router.push(pathname + '?' + createQueryString('project', value))
     }
 
