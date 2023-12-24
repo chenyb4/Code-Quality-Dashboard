@@ -9,8 +9,17 @@ export function MyLineChart({historyArray}: Props) {
 
     let historyArrayConverted:{ date: string, value: string }[]=[];
 
+    let minValue=1000000000;
+    let maxValue=0;
+
     historyArray.forEach((dp)=>{
         historyArrayConverted.push({date:dp.date.toDateString(),value:dp.value.toString()});
+        if(dp.value>maxValue){
+            maxValue=dp.value;
+        }
+        if(dp.value<minValue){
+            minValue=dp.value;
+        }
     });
 
     return (
@@ -22,7 +31,8 @@ export function MyLineChart({historyArray}: Props) {
             colors={["emerald"]}
             yAxisWidth={40}
             showAnimation={true}
-            autoMinValue={true}
+            maxValue={maxValue}
+            minValue={minValue}
             showLegend={false}
             showXAxis={false}
             showYAxis={true}
