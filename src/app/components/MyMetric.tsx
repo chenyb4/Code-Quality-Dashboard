@@ -13,7 +13,7 @@ interface Props {
 export function MyMetric({
                              history=[],
                              formattingType,
-                             currentValueIfKnown,
+                             currentValueIfKnown=undefined,
                          }: Props) {
     const styleForMetric = "text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2";
 
@@ -22,7 +22,7 @@ export function MyMetric({
     let hours = null;
     let currentValue = null;
 
-    if(history.length>0||currentValueIfKnown){
+    if(history.length>0||currentValueIfKnown!=undefined){
         if (currentValueIfKnown) {
             currentValue = currentValueIfKnown;
         } else {
