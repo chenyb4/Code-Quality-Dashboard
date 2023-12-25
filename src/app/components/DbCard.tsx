@@ -71,6 +71,7 @@ export function DbCard({
         <input type="hidden" id="date" name="date" value={Math.floor((new Date()).getTime() / 1000)} readOnly={true}
                required/>
         <input type="hidden" id="value" name="value" value={currentValue} readOnly={true} required/>
+        <input type="hidden" id="project" name="project" value={component} readOnly={true} required/>
 
         <Button size="xs" color="emerald" className="m-10" onClick={storeToDb}>store
             current value to DB</Button>
