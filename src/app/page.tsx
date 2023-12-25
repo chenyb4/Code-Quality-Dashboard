@@ -26,7 +26,7 @@ export default async function Home({searchParams}:Props) {
         <main className="flex min-h-screen flex-col items-center justify-between p-10">
             <div>
                 <div className="flex justify-between">
-                    <MySelect projects={projects}/>
+                    <MySelect projects={projects} currentProj={searchParams.project}/>
                     <Subtitle><Bold>From</Bold> {fromDateString} <Bold>to</Bold> {currentDateString}</Subtitle>
                 </div>
 
