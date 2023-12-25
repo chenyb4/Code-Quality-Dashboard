@@ -4,10 +4,10 @@ import {SearchSelect, SearchSelectItem} from "@tremor/react";
 import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 
 interface Props{
-    teams:{key:string,name:string,qualifier:string,project:string}[];
+    projects:{key:string,name:string,qualifier:string,project:string}[];
 }
 
-export function MySelect({teams}:Props) {
+export function MySelect({projects}:Props) {
 
     const router = useRouter()
     const pathname = usePathname()
@@ -24,17 +24,17 @@ export function MySelect({teams}:Props) {
     )
 
     const handleSelection=(value:string)=>{
-        router.push(pathname + '?' + createQueryString('project', value))
+        router.push(pathname + '?' + createQueryString('project', value));
     }
 
     return (
         <>
             <div className="w-72 mb-10">
                 <SearchSelect onValueChange={(value)=>handleSelection(value)}>
-                    {teams.map((team,i)=>{
+                    {projects.map((project, i)=>{
                         return(
-                            <SearchSelectItem value={team.name} key={i}>
-                                {team.name}
+                            <SearchSelectItem value={project.name} key={i}>
+                                {project.name}
                             </SearchSelectItem>
                         );
                     })}
