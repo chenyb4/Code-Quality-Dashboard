@@ -13,20 +13,12 @@ interface Props {
 
 export async function Dashboard({component}: Props) {
 
-    const metricsForSonarQube = [metrics.codeCoverage, metrics.cognitiveComplexity, metrics.technicalDebt];
-
-    let metricsStringForSonarQube = "";
-
-    //process the metrics array to a metrics string
-    //this metrics string is used as a query param for
-    //api call to sonarqube for retrieving measures history
-    metricsForSonarQube.forEach((metric) => {
-        metricsStringForSonarQube += metric.key;
-        metricsStringForSonarQube += ",";
-    })
+    //if we add a new card which gets measures history from SonarQube
+    //add the key of that metric to this array
+    const metricsForSonarQube = [metrics.codeCoverage.key, metrics.cognitiveComplexity.key, metrics.technicalDebt.key];
 
     //fetch data from sonarqube
-    const data = await getDataByDaysAgo(30, component, metricsStringForSonarQube);
+    const data = await getDataByDaysAgo(30, component, metricsForSonarQube.join(","));
 
     let measures: { metric: string, history: { date: Date, value: number }[] }[] = [];
 
