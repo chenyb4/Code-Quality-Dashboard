@@ -1,4 +1,4 @@
-import {open, Database} from "sqlite";
+import {open} from "sqlite";
 import sqlite3 from "sqlite3";
 
 const {SONARQUBE_TOKEN} = process.env;

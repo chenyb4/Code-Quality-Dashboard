@@ -28,7 +28,7 @@ export function MySelect({projects, currentProj}:Props) {
         router.push(pathname + '?' + createQueryString('project', value));
     }
 
-    if(currentProj==undefined){
+    if(currentProj==undefined || currentProj==''){
         currentProj="Select a project...";
     }
 

@@ -1,5 +1,4 @@
 import {FormattingType} from "@/app/utils/FormattingType";
-import {number} from "prop-types";
 
 /**
  * get the current value which is the last value in the history array
