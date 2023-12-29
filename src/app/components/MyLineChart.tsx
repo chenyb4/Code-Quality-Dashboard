@@ -9,8 +9,8 @@ export function MyLineChart({historyArray}: Props) {
 
     let historyArrayConverted:{ date: string, value: string }[]=[];
 
-    let minValue=1000000000;
-    let maxValue=0;
+    let minValue=Infinity;
+    let maxValue=-Infinity;
 
     historyArray.forEach((dp)=>{
         historyArrayConverted.push({date:dp.date.toDateString(),value:dp.value.toString()});
