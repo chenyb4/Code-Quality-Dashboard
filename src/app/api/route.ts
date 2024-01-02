@@ -1,8 +1,8 @@
 import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
+import { Database, open } from 'sqlite';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-let db = null;
+let db : Database | null = null;
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -18,7 +18,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       });
     }
 
-    const result = await db.run('INSERT INTO history(projectKey, metricKey, date, value) VALUES(?, ?,?,?)', [projectKey, metricKey, date, value], (err) => {
+    db.run('INSERT INTO history(projectKey, metricKey, date, value) VALUES(?, ?,?,?)', [projectKey, metricKey, date, value], (err:Error | null) => {
       if (err) {
         return console.log(err.message);
       }
