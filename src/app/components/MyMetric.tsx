@@ -33,7 +33,5 @@ export const MyMetric = ({
     metric = <Metric className={styleForMetric}>no data</Metric>;
   }
 
-  return (
-    metric
-  );
+  return metric;
 };

@@ -49,8 +49,6 @@ export const MyBadgeDelta = ({ history, isIncreasePositive }: Props) => {
   }
 
   return (
-    <>
-      {badgeDelta}
-    </>
+    badgeDelta
   );
 };

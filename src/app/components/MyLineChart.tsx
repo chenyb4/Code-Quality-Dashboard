@@ -20,7 +20,7 @@ export const MyLineChart = ({ historyArray }: Props) => {
     }
   });
 
-  return (
+  const lineChart = (
     <LineChart
       className="mt-10 h-40"
       data={historyArrayConverted}
@@ -37,4 +37,6 @@ export const MyLineChart = ({ historyArray }: Props) => {
       showGridLines
     />
   );
+
+  return lineChart;
 };

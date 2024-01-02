@@ -124,7 +124,5 @@ export async function Dashboard({ component }: Props) {
     );
   }
 
-  return (
-    grid
-  );
+  return grid;
 }
