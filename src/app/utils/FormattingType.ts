@@ -1,5 +1,5 @@
 export enum FormattingType {
-    PERCENTAGE,
-    ABSOLUTE,
-    HOURSANDMINUTES,
+  PERCENTAGE,
+  ABSOLUTE,
+  HOURSANDMINUTES,
 }

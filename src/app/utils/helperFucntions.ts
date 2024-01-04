@@ -1,4 +1,4 @@
-import {FormattingType} from "@/app/utils/FormattingType";
+import { FormattingType } from '@/app/utils/FormattingType';
 
 /**
  * get the current value which is the last value in the history array
@@ -6,14 +6,14 @@ import {FormattingType} from "@/app/utils/FormattingType";
  * @return current value
  */
 export function getCurrentValue(historyArray: { date: Date, value: number }[]):number {
-    let currentValue:number;
-    if(historyArray.length>0){
-        currentValue=historyArray[historyArray.length - 1].value;
-    }else{
-        currentValue=0;
-    }
+  let currentValue:number;
+  if (historyArray.length > 0) {
+    currentValue = historyArray[historyArray.length - 1].value;
+  } else {
+    currentValue = 0;
+  }
 
-    return currentValue;
+  return currentValue;
 }
 
 /**
@@ -22,15 +22,15 @@ export function getCurrentValue(historyArray: { date: Date, value: number }[]):n
  * @return the value of last value in the history array subtract the first value
  */
 export function getImprovement(historyArray: { date: Date, value: number }[]): number {
-    let improvement;
-    if(historyArray.length>0){
-        const firstItem = historyArray[0];
-        const lastItem = historyArray[historyArray.length - 1];
-        improvement = lastItem.value - firstItem.value;
-    }else{
-        improvement=0;
-    }
-    return improvement;
+  let improvement;
+  if (historyArray.length > 0) {
+    const firstItem = historyArray[0];
+    const lastItem = historyArray[historyArray.length - 1];
+    improvement = lastItem.value - firstItem.value;
+  } else {
+    improvement = 0;
+  }
+  return improvement;
 }
 
 /**
@@ -39,11 +39,12 @@ export function getImprovement(historyArray: { date: Date, value: number }[]): n
  * @return a string of formatted date in the format of dd/mm/yyyy
  */
 export function formatDate(input: string) {
-    let datePart = input.match(/\d+/g),
-        year = datePart?.[0].substring(0), // get four digits
-        month = datePart?.[1], day = datePart?.[2];
+  const datePart = input.match(/\d+/g);
+  const year = datePart?.[0].substring(0); // get four digits
+  const month = datePart?.[1]; const
+    day = datePart?.[2];
 
-    return day + '/' + month + '/' + year;
+  return `${day}/${month}/${year}`;
 }
 
 /**
@@ -52,18 +53,17 @@ export function formatDate(input: string) {
  * @return the history array from the SonarQube data with Netherlands date and time format
  */
 export function formatToNetherlandsTimeFormat(data: { date: string, value: string }[]) {
-    let dataFormatted: { date: string, value: string }[] = [];
-    data.forEach((obj) => {
-        let formattedDate = obj.date.slice(0, 10);
-        formattedDate = formatDate(formattedDate);
-        let formattedDp: { date: string, value: string } = {date: "", value: ""};
-        formattedDp.date = formattedDate;
-        formattedDp.value = obj.value;
-        dataFormatted.push(formattedDp);
-    });
-    return dataFormatted;
+  const dataFormatted: { date: string, value: string }[] = [];
+  data.forEach((obj) => {
+    let formattedDate = obj.date.slice(0, 10);
+    formattedDate = formatDate(formattedDate);
+    const formattedDp: { date: string, value: string } = { date: '', value: '' };
+    formattedDp.date = formattedDate;
+    formattedDp.value = obj.value;
+    dataFormatted.push(formattedDp);
+  });
+  return dataFormatted;
 }
-
 
 /**
  * Converts a date string from American format (MMM DD YYYY) to Dutch format (DD/MM/YYYY).
@@ -73,24 +73,24 @@ export function formatToNetherlandsTimeFormat(data: { date: string, value: strin
  * @return {string} - The date string converted to Dutch format.
  */
 export function formatDateAmericanToDutch(dateString:string) {
-    // Create a mapping for month names
-    const monthNames = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
+  // Create a mapping for month names
+  const monthNames = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
 
-    // Split the input string into an array of parts
-    const parts = dateString.split(' ');
+  // Split the input string into an array of parts
+  const parts = dateString.split(' ');
 
-    // Get day, month, and year
-    const day = parts[2].padStart(2, '0');
-    const month = (monthNames.indexOf(parts[1]) + 1).toString().padStart(2, '0'); // Months are zero-indexed
-    const year = parts[3];
+  // Get day, month, and year
+  const day = parts[2].padStart(2, '0');
+  const month = (monthNames.indexOf(parts[1]) + 1).toString().padStart(2, '0'); // Months are zero-indexed
+  const year = parts[3];
 
-    // Format the date as 'DD/MM/YYYY'
-    const formattedDate = `${day}/${month}/${year}`;
+  // Format the date as 'DD/MM/YYYY'
+  const formattedDate = `${day}/${month}/${year}`;
 
-    return formattedDate;
+  return formattedDate;
 }
 
 /**
@@ -99,18 +99,17 @@ export function formatDateAmericanToDutch(dateString:string) {
  * @param {Array} history - The history array from the database with dates in epoch seconds.
  * @return {Array} - The formatted history array for the card with dates in good format.
  */
-export function formatDbHistoryArrayForCard(history:{date: number, value: number}[]){
-    const formattedHistory: { date: Date, value: number }[] = history.map((item: { date: number, value: number }) => {
-        let d=new Date(0);
-        d.setUTCSeconds(item.date);
-        return {
-            date: d,
-            value: item.value
-        };
-    });
-    return formattedHistory;
+export function formatDbHistoryArrayForCard(history:{ date: number, value: number }[]) {
+  const formattedHistory: { date: Date, value: number }[] = history.map((item: { date: number, value: number }) => {
+    const d = new Date(0);
+    d.setUTCSeconds(item.date);
+    return {
+      date: d,
+      value: item.value,
+    };
+  });
+  return formattedHistory;
 }
-
 
 /**
  * Converts a number into a string representation with commas separating thousands.
@@ -119,7 +118,7 @@ export function formatDbHistoryArrayForCard(history:{date: number, value: number
  * @return {string} - The formatted string with commas.
  */
 function numberWithCommas(x:number) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 /**
@@ -128,23 +127,22 @@ function numberWithCommas(x:number) {
  * @param {FormattingType} [formattingType] - The formatting type.
  * @return {string} - The formatted value as a string.
  */
-export function formatCurrentValue(value:number,formattingType?:FormattingType):string{
-    let formattedString='';
-    if(formattingType==FormattingType.PERCENTAGE){
-        formattedString=value.toString();
-        formattedString+="%";
-    }else if(formattingType==FormattingType.ABSOLUTE){
-        formattedString=numberWithCommas(value);
-    }else if(formattingType==FormattingType.HOURSANDMINUTES){
-        let minutes = null;
-        let hours = null;
-        minutes = value % 60;
-        hours = Math.floor(value / 60);
-        formattedString=hours.toString();
-        formattedString+="h ";
-        formattedString+=minutes.toString();
-        formattedString+="m";
-
-    }
-    return formattedString
+export function formatCurrentValue(value:number, formattingType?:FormattingType):string {
+  let formattedString = '';
+  if (formattingType === FormattingType.PERCENTAGE) {
+    formattedString = value.toString();
+    formattedString += '%';
+  } else if (formattingType === FormattingType.ABSOLUTE) {
+    formattedString = numberWithCommas(value);
+  } else if (formattingType === FormattingType.HOURSANDMINUTES) {
+    let minutes = null;
+    let hours = null;
+    minutes = value % 60;
+    hours = Math.floor(value / 60);
+    formattedString = hours.toString();
+    formattedString += 'h ';
+    formattedString += minutes.toString();
+    formattedString += 'm';
+  }
+  return formattedString;
 }

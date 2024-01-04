@@ -1,42 +1,42 @@
-import {LineChart} from "@tremor/react";
+import { LineChart } from '@tremor/react';
 
 interface Props {
-    historyArray: { date: Date, value: number }[];
+  historyArray: { date: Date, value: number }[];
 }
 
-export function MyLineChart({historyArray}: Props) {
+export const MyLineChart = ({ historyArray }: Props) => {
+  const historyArrayConverted:{ date: string, value: string }[] = [];
 
-    let historyArrayConverted:{ date: string, value: string }[]=[];
+  let minValue = Infinity;
+  let maxValue = -Infinity;
 
-    let minValue=Infinity;
-    let maxValue=-Infinity;
+  historyArray.forEach((dp) => {
+    historyArrayConverted.push({ date: dp.date.toDateString(), value: dp.value.toString() });
+    if (dp.value > maxValue) {
+      maxValue = dp.value;
+    }
+    if (dp.value < minValue) {
+      minValue = dp.value;
+    }
+  });
 
-    historyArray.forEach((dp)=>{
-        historyArrayConverted.push({date:dp.date.toDateString(),value:dp.value.toString()});
-        if(dp.value>maxValue){
-            maxValue=dp.value;
-        }
-        if(dp.value<minValue){
-            minValue=dp.value;
-        }
-    });
+  const lineChart = (
+    <LineChart
+      className="mt-10 h-40"
+      data={historyArrayConverted}
+      index="date"
+      categories={['value']}
+      colors={['emerald']}
+      yAxisWidth={40}
+      showAnimation
+      maxValue={maxValue}
+      minValue={minValue}
+      showLegend={false}
+      showXAxis={false}
+      showYAxis
+      showGridLines
+    />
+  );
 
-    return (
-        <LineChart
-            className="mt-10 h-40"
-            data={historyArrayConverted}
-            index="date"
-            categories={["value"]}
-            colors={["emerald"]}
-            yAxisWidth={40}
-            showAnimation={true}
-            maxValue={maxValue}
-            minValue={minValue}
-            showLegend={false}
-            showXAxis={false}
-            showYAxis={true}
-            showGridLines={true}
-        />
-    );
-}
-
+  return lineChart;
+};
