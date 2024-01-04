@@ -14,20 +14,12 @@ interface Props {
 export async function Dashboard({ component }: Props) {
   const metricsForSonarQube = [metrics.codeCoverage, metrics.cognitiveComplexity, metrics.technicalDebt];
 
-  let metricsStringForSonarQube = '';
+    //if we add a new card which gets measures history from SonarQube
+    //add the key of that metric to this array
+    const metricsForSonarQube = [metrics.codeCoverage.key, metrics.cognitiveComplexity.key, metrics.technicalDebt.key];
 
-  // process the metrics array to a metrics string
-  // this metrics string is used as a query param for
-  // api call to sonarqube for retrieving measures history
-  metricsForSonarQube.forEach((metric) => {
-    metricsStringForSonarQube += metric.key;
-    metricsStringForSonarQube += ',';
-  });
-
-  // fetch data from sonarqube
-  const data = await getDataByDaysAgo(30, component, metricsStringForSonarQube);
-
-  const measures: { metric: string, history: { date: Date, value: number }[] }[] = [];
+    //fetch data from sonarqube
+    const data = await getDataByDaysAgo(30, component, metricsForSonarQube.join(","));
 
   // this is for converting the data into Date type and value into number type
   // in all the data points in the data object's measures array
