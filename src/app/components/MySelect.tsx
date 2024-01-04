@@ -1,47 +1,50 @@
-'use client';
+"use client";
+import {useCallback} from "react";
+import {SearchSelect, SearchSelectItem} from "@tremor/react";
+import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 
-import { useCallback } from 'react';
-import { SearchSelect, SearchSelectItem } from '@tremor/react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
-interface Props {
-  projects:{ key:string, name:string, qualifier:string, project:string }[];
-  currentProj?:string;
+interface Props{
+    projects:{key:string,name:string,qualifier:string,project:string}[];
+    currentProj?:string;
 }
 
-export const MySelect = ({ projects, currentProj }:Props) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams()!;
-  let currentProject = currentProj;
+export function MySelect({projects, currentProj}:Props) {
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()!
 
-      return params.toString();
-    },
-    [searchParams],
-  );
+    const createQueryString = useCallback(
+        (name: string, value: string) => {
+            const params = new URLSearchParams(searchParams)
+            params.set(name, value)
 
-  const handleSelection = (value:string) => {
-    router.push(`${pathname}?${createQueryString('project', value)}`);
-  };
+            return params.toString()
+        },
+        [searchParams]
+    )
 
-  if (currentProject === undefined || currentProject === '') {
-    currentProject = 'Select a project...';
-  }
+    const handleSelection=(value:string)=>{
+        router.push(pathname + '?' + createQueryString('project', value));
+    }
 
-  return (
-    <div className="mb-10 w-72">
-      <SearchSelect onValueChange={(value) => handleSelection(value)} placeholder={currentProject}>
-        {projects.map((project, i) => (
-          <SearchSelectItem value={project.name} key={i}>
-            {project.name}
-          </SearchSelectItem>
-        ))}
-      </SearchSelect>
-    </div>
-  );
-};
+    if(currentProj==undefined || currentProj==''){
+        currentProj="Select a project...";
+    }
+
+    return (
+        <>
+            <div className="w-72 mb-10">
+                <SearchSelect onValueChange={(value)=>handleSelection(value)} placeholder={currentProj}>
+                    {projects.map((project, i)=>{
+                        return(
+                            <SearchSelectItem value={project.name} key={i}>
+                                {project.name}
+                            </SearchSelectItem>
+                        );
+                    })}
+                </SearchSelect>
+            </div>
+        </>
+    );
+}

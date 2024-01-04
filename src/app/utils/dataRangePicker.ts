@@ -1,4 +1,4 @@
-import { getSonarQubeMeasuresHistory } from '@/app/utils/dataFetchers';
+import {getSonarQubeMeasuresHistory} from "@/app/utils/dataFetchers";
 
 /**
  * add days to a date provided
@@ -7,9 +7,9 @@ import { getSonarQubeMeasuresHistory } from '@/app/utils/dataFetchers';
  * @return the date after the days are added
  */
 export function addDays(date:Date, days:number) {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
 
 /**
@@ -17,9 +17,9 @@ export function addDays(date:Date, days:number) {
  * @param days the number of days to trace back
  * @return array of sonarqube data
  */
-export async function getDataByDaysAgo(days:number, component:string, metrics:string) {
-  const currentDate = new Date();
-  const fromDateString = addDays(currentDate, 0 - days).toISOString().split('T')[0];
-  const data = await getSonarQubeMeasuresHistory(component, metrics, '1000', fromDateString);
-  return data;
+export async function getDataByDaysAgo(days:number, component:string, metrics:string){
+    const currentDate=new Date();
+    const fromDateString=addDays(currentDate,0-days).toISOString().split('T')[0];
+    const data = await getSonarQubeMeasuresHistory(component,metrics,'1000',fromDateString);
+    return data;
 }
