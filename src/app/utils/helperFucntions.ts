@@ -111,17 +111,6 @@ export function formatDbHistoryArrayForCard(history:{date: number, value: number
     return formattedHistory;
 }
 
-
-/**
- * Converts a number into a string representation with commas separating thousands.
- *
- * @param {number} x - The number to format with commas.
- * @return {string} - The formatted string with commas.
- */
-function numberWithCommas(x:number) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 /**
  * Formats the given value based on the provided formatting type.
  * @param {number} value - The value to format.
@@ -134,7 +123,7 @@ export function formatCurrentValue(value:number,formattingType?:FormattingType):
         formattedString=value.toString();
         formattedString+="%";
     }else if(formattingType==FormattingType.ABSOLUTE){
-        formattedString=numberWithCommas(value);
+        formattedString=new Intl.NumberFormat('en-IN').format(value);
     }else if(formattingType==FormattingType.HOURSANDMINUTES){
         let minutes = null;
         let hours = null;
