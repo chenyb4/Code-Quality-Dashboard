@@ -118,6 +118,9 @@ export function formatDbHistoryArrayForCard(history:{ date: number, value: numbe
  * @return {string} - The formatted value as a string.
  */
 export function formatCurrentValue(value:number, formattingType?:FormattingType):string {
+  if (value === Infinity || value === -Infinity || value < 0 || Number.isNaN(value)) {
+    throw new Error('value is not accepted');
+  }
   let formattedString = '';
   if (formattingType === FormattingType.PERCENTAGE) {
     formattedString = value.toString();
