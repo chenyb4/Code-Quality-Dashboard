@@ -119,12 +119,12 @@ export function formatDbHistoryArrayForCard(history:{ date: number, value: numbe
  */
 export function formatCurrentValue(value:number, formattingType?:FormattingType):string {
   let formattedString = '';
-  if (formattingType == FormattingType.PERCENTAGE) {
+  if (formattingType === FormattingType.PERCENTAGE) {
     formattedString = value.toString();
     formattedString += '%';
-  } else if (formattingType == FormattingType.ABSOLUTE) {
+  } else if (formattingType === FormattingType.ABSOLUTE) {
     formattedString = new Intl.NumberFormat('en-IN').format(value);
-  } else if (formattingType == FormattingType.HOURSANDMINUTES) {
+  } else if (formattingType === FormattingType.HOURSANDMINUTES) {
     let minutes = null;
     let hours = null;
     minutes = value % 60;

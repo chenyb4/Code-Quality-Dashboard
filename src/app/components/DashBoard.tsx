@@ -29,12 +29,10 @@ export async function Dashboard({ component }: Props) {
   if (data.measures) {
     data.measures.forEach((measure: { metric: string, history: { date: string, value: string }[] }) => {
       // push every converted measure to the data variable
-      let tempMeasure: { metric: string, history: { date: Date, value: number }[] };
-      tempMeasure = { metric: measure.metric, history: [] };
+      const tempMeasure: { metric: string, history: { date: Date, value: number }[] } = { metric: measure.metric, history: [] };
       // every dp in the history array is an object with data and value members
       measure.history.forEach((dp: { date: string, value: string }) => {
-        let tempDp: { date: Date, value: number };
-        tempDp = { date: new Date(dp.date), value: parseFloat(dp.value) };
+        const tempDp: { date: Date, value: number } = { date: new Date(dp.date), value: parseFloat(dp.value) };
         tempMeasure.history.push(tempDp);
       });
       measures.push(tempMeasure);
@@ -114,9 +112,5 @@ export async function Dashboard({ component }: Props) {
     );
   }
 
-  return (
-    <>
-      {grid}
-    </>
-  );
+  return grid;
 }

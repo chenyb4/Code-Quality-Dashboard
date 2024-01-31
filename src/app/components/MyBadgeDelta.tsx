@@ -48,9 +48,5 @@ export const MyBadgeDelta = ({ history, isIncreasePositive }: Props) => {
     badgeDelta = <Badge className={styleForBadgeDelta} color="emerald">no data</Badge>;
   }
 
-  return (
-    <>
-      {badgeDelta}
-    </>
-  );
+  return badgeDelta;
 };

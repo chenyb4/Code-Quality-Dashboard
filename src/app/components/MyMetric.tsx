@@ -18,11 +18,9 @@ export const MyMetric = ({
   const styleForMetric = 'text-emerald-600 mt-12 border-2 w-fit rounded-2xl border-emerald-600 p-2';
 
   let metric = null;
-  const minutes = null;
-  const hours = null;
   let currentValue = null;
 
-  if (history.length > 0 || currentValueIfKnown != undefined) {
+  if (history.length > 0 || currentValueIfKnown !== undefined) {
     if (currentValueIfKnown) {
       currentValue = currentValueIfKnown;
     } else {
@@ -35,9 +33,5 @@ export const MyMetric = ({
     metric = <Metric className={styleForMetric}>no data</Metric>;
   }
 
-  return (
-    <>
-      {metric}
-    </>
-  );
+  return metric;
 };

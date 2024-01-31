@@ -9,7 +9,8 @@ const { SONARQUBE_TOKEN } = process.env;
  * @param metrics SonarQube metrics for which we want the data history.
  * more metrics https://docs.sonarsource.com/sonarqube/latest/user-guide/metric-definitions/
  * @param ps Page size. Must be greater than 0 and less or equal than 1000.
- * @param from Filter measures created after the given date (inclusive). Either a date (server timezone) or datetime can be provided.
+ * @param from Filter measures created after the given date (inclusive). Either a date (server timezone)
+ * or datetime can be provided.
  * @return SonarQube data in JSON.
  */
 export async function getSonarQubeMeasuresHistory(component: string, metrics: string, ps: string, from: string) {
@@ -29,9 +30,6 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
     },
   );
   const data = resp.json();
-  if (!data) {
-    throw new Error('Failed to fetch');
-  }
   return data;
 }
 
@@ -63,9 +61,6 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
     },
   );
   const data = resp.json();
-  if (!data) {
-    throw new Error('Failed to fetch');
-  }
   return data;
 }
 
@@ -89,9 +84,6 @@ export async function getProjectsFromSonarQube() {
     },
   );
   const data = resp.json();
-  if (!data) {
-    throw new Error('Failed to fetch');
-  }
   return data;
 }
 
@@ -102,7 +94,8 @@ export async function getProjectsFromSonarQube() {
  * @param {string} metricKey - The key of the metric.
  * @param {number} [from] - Optional. The starting date to filter the results. Need to be in epoch seconds.
  * @param {number} [till] - Optional. The ending date to filter the results. Need to be in epoch seconds.
- * @return {Promise<Array<Object>>} - A promise that resolves to an array of objects representing the measurement history.
+ * @return {Promise<Array<Object>>} - A promise that resolves to an array of objects
+ * representing the measurement history.
  */
 export async function getMeasureHistoryFromDb(projectKey:string, metricKey:string, from?:number, till?:number) {
   let sql = 'SELECT * FROM history WHERE';
@@ -120,12 +113,11 @@ export async function getMeasureHistoryFromDb(projectKey:string, metricKey:strin
 
   let db = null;
 
-  if (!db) {
-    db = await open({
-      filename: './src/app/db/db.db',
-      driver: sqlite3.Database,
-    });
-  }
+  db = await open({
+    filename: './src/app/db/db.db',
+    driver: sqlite3.Database,
+  });
+
   const items = await db.all(sql);
   return items;
 }

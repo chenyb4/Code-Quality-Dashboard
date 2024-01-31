@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const MySelect = ({ projects, currentProj }:Props) => {
+  let currentProjText:string | undefined = currentProj;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
@@ -18,7 +19,6 @@ export const MySelect = ({ projects, currentProj }:Props) => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
-
       return params.toString();
     },
     [searchParams],
@@ -28,13 +28,13 @@ export const MySelect = ({ projects, currentProj }:Props) => {
     router.push(`${pathname}?${createQueryString('project', value)}`);
   };
 
-  if (currentProj == undefined || currentProj == '') {
-    currentProj = 'Select a project...';
+  if (currentProj === undefined || currentProj === '') {
+    currentProjText = 'Select a project...';
   }
 
   return (
     <div className="mb-10 w-72">
-      <SearchSelect onValueChange={(value) => handleSelection(value)} placeholder={currentProj}>
+      <SearchSelect onValueChange={(value) => handleSelection(value)} placeholder={currentProjText}>
         {projects.map((project, i) => (
           <SearchSelectItem value={project.name} key={i}>
             {project.name}

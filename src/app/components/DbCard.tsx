@@ -56,14 +56,12 @@ export const DbCard = ({
   let lineChart = null;
 
   // these are definitely shown
-  let metric;
-  const button = null;
-  let form = null;
-
   // form and metric are always there
   // because this is DB card, metric always use currentValue that is known
   // from calculating the array length of the issues from sonarqube
-  metric = <MyMetric currentValueIfKnown={currentValue} formattingType={formattingType} />;
+  const metric = <MyMetric currentValueIfKnown={currentValue} formattingType={formattingType} />;
+  let form = null;
+
   form = (
     <form id="myForm">
       <input type="hidden" id="projectKey" name="projectKey" value={component} readOnly required />

@@ -24,7 +24,7 @@ export default async function Home({ searchParams }:Props) {
   let dashboard = null;
   let subtitle = null;
 
-  if (searchParams.project != undefined && searchParams.project != '') {
+  if (searchParams.project !== undefined && searchParams.project !== '') {
     dashboard = <Dashboard component={searchParams.project} />;
     subtitle = (
       <Subtitle>
