@@ -18,7 +18,14 @@ Open http://localhost:3000 with your browser to see the result.
 ## Current Problems
 0) there are lots of refactoring jobs needs to be done:
 ```
-1. base url for calls. 2. removing printdeal eslint. 3. token type can be in the config file. 4.pass the metric config in one object. 5. generate the metrics array based on metric config. 6. generate the cards based on metric config. (maybe also add a enable or not property in the metric config file to allow temperarily disable some of the cards and not show them). 7. ordering the cards based on some sorting preference. 8. drag and drop to order the cards.
+1. base url for calls.
+2. removing printdeal eslint.
+3. token type can be in the config file.
+4.pass the metric config in one object.
+5. generate the metrics array based on metric config.
+6. generate the cards based on metric config. (maybe also add a enable or not property in the metric config file to allow temperarily disable some of the cards and not show them).
+7. ordering the cards based on some sorting preference.
+8. drag and drop to order the cards.
 ```
 1) the api call needs to be http or https need to be checked with postman.
 2) the authorization token's surfix is Bearer or Basic needs to be checked.
