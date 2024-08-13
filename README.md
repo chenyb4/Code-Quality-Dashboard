@@ -13,3 +13,9 @@ npm run dev
 ```
 
 Open http://localhost:3000 with your browser to see the result.
+
+
+important:
+1) the api call needs to be http or https need to be checked with postman.
+2) the authorization token's surfix is Bearer or Basic needs to be checked.
+
