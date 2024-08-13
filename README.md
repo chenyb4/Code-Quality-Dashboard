@@ -32,7 +32,7 @@ Open http://localhost:3000 with your browser to see the result.
 1) the api call needs to be http or https need to be checked with postman.
 2) the authorization token's surfix is Bearer or Basic needs to be checked.
 3) in the select component, the name of the project is not always the same with the key of the component. querying the data needs the key, while displaying the projects in the select component needs the name.
-4) 
+4) adjusting for the number of days back in the history does not seem to work 
 
 
 could further develop:
