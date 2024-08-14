@@ -37,7 +37,7 @@ export const MySelect = ({ projects, currentProj }:Props) => {
       <SearchSelect onValueChange={(value) => handleSelection(value)} placeholder={currentProjText}>
         {projects.map((project, i) => (
           <SearchSelectItem value={project.key} key={i}>
-            {project.key}
+            {project.name}
           </SearchSelectItem>
         ))}
       </SearchSelect>
