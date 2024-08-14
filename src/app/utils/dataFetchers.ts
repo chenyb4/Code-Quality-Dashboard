@@ -1,7 +1,8 @@
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 
-const { SONARQUBE_TOKEN } = process.env;
+const { SONARQUBE_TOKEN, BASE_URL, TOKEN_TYPE } = process.env;
+
 
 /**
  * fetch SonarQube measures history from SonarQube web api
@@ -15,7 +16,7 @@ const { SONARQUBE_TOKEN } = process.env;
  */
 export async function getSonarQubeMeasuresHistory(component: string, metrics: string, ps: string, from: string) {
   const resp = await fetch(
-    `https://sonarqube.app1.printdeal.cloud/api/measures/search_history?${new URLSearchParams({
+    `${BASE_URL}/api/measures/search_history?${new URLSearchParams({
       component,
       metrics,
       ps,
@@ -25,7 +26,7 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        authorization: `Basic ${SONARQUBE_TOKEN}`,
+        authorization: `${TOKEN_TYPE} ${SONARQUBE_TOKEN}`,
       },
     },
   );
@@ -46,7 +47,7 @@ export async function getSonarQubeMeasuresHistory(component: string, metrics: st
  */
 export async function getSonarQubeIssuesByRules(component: string, ps: string, rules: string, statuses:string) {
   const resp = await fetch(
-    `https://sonarqube.app1.printdeal.cloud/api/issues/search?${new URLSearchParams({
+    `${BASE_URL}/api/issues/search?${new URLSearchParams({
       componentKeys: component,
       ps,
       rules,
@@ -56,7 +57,7 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        authorization: `Basic ${SONARQUBE_TOKEN}`,
+        authorization: `${TOKEN_TYPE} ${SONARQUBE_TOKEN}`,
       },
     },
   );
@@ -72,14 +73,14 @@ export async function getSonarQubeIssuesByRules(component: string, ps: string, r
  */
 export async function getProjectsFromSonarQube() {
   const resp = await fetch(
-    `https://sonarqube.app1.printdeal.cloud/api/components/search?${new URLSearchParams({
+    `${BASE_URL}/api/components/search?${new URLSearchParams({
       qualifiers: 'TRK',
     })}`,
     {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
-        authorization: `Basic ${SONARQUBE_TOKEN}`,
+        authorization: `${TOKEN_TYPE} ${SONARQUBE_TOKEN}`,
       },
     },
   );
