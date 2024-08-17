@@ -1,42 +1,48 @@
 import { FormattingType } from '@/app/utils/FormattingType';
+import { rule } from 'postcss';
 
-interface Metrics {
-  codeCoverage: MetricsDefinition;
-  cognitiveComplexity: MetricsDefinition;
-  technicalDebt: MetricsDefinition;
-  numberOfDeprecations: MetricsDefinition;
-}
+// interface Metrics {
+//   codeCoverage: MetricsDefinition;
+//   cognitiveComplexity: MetricsDefinition;
+//   technicalDebt: MetricsDefinition;
+//   numberOfDeprecations: MetricsDefinition;
+// }
 
 interface MetricsDefinition {
   title: string;
   key: string;
   isIncreasePositive: boolean;
-  formatting: FormattingType;
+  formattingType: FormattingType;
+  hasMeasuresHistory:boolean;
 }
 
-export const metrics: Metrics = {
-  codeCoverage: {
+export const metrics:MetricsDefinition[] = [
+  {
     title: 'Code Coverage',
     key: 'coverage',
     isIncreasePositive: true,
-    formatting: FormattingType.PERCENTAGE,
+    formattingType: FormattingType.PERCENTAGE,
+    hasMeasuresHistory:true
   },
-  cognitiveComplexity: {
+  {
     title: 'Cognitive Complexity',
     key: 'cognitive_complexity',
     isIncreasePositive: false,
-    formatting: FormattingType.ABSOLUTE,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:true
   },
-  technicalDebt: {
+{
     title: 'Technical Debt',
     key: 'sqale_index',
     isIncreasePositive: false,
-    formatting: FormattingType.HOURSANDMINUTES,
+    formattingType: FormattingType.HOURSANDMINUTES,
+    hasMeasuresHistory:true
   },
-  numberOfDeprecations: {
+ {
     title: 'Number of Deprecations',
     key: 'deprecation',
     isIncreasePositive: false,
-    formatting: FormattingType.ABSOLUTE,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:false
   },
-};
+];

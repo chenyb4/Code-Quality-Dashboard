@@ -14,7 +14,16 @@ interface Props {
 export async function Dashboard({ component }: Props) {
   // if we add a new card which gets measures history from SonarQube
   // add the key of that metric to this array
-  const metricsForSonarQube = [metrics.codeCoverage.key, metrics.cognitiveComplexity.key, metrics.technicalDebt.key];
+  //const metricsForSonarQube = [metrics.codeCoverage.key, metrics.cognitiveComplexity.key, metrics.technicalDebt.key];
+
+  const metricsForSonarQube:string[]=[];
+  metrics.forEach(element => {
+    if(element.hasMeasuresHistory){
+      metricsForSonarQube.push(element.key);
+    }
+  });
+
+
 
   // fetch data from sonarqube
   const data = await getDataByDaysAgo(30, component, metricsForSonarQube.join(','));
@@ -47,17 +56,17 @@ export async function Dashboard({ component }: Props) {
   const currentDate = new Date();
   const fromDate = addDays(currentDate, 0 - 30);
 
-  const deprecationHistory = await getMeasureHistoryFromDb(component, metrics.numberOfDeprecations.key, Math.floor((fromDate).getTime() / 1000));
+  const deprecationHistory = await getMeasureHistoryFromDb(component, metrics[3].key, Math.floor((fromDate).getTime() / 1000));
   const deprecationHistoryFormatted = formatDbHistoryArrayForCard(deprecationHistory);
   const deprecationCard = (
     <DbCard
-      title={metrics.numberOfDeprecations.title}
+      title={metrics[3].title}
       history={deprecationHistoryFormatted}
-      isIncreasePositive={metrics.numberOfDeprecations.isIncreasePositive}
-      formattingType={metrics.numberOfDeprecations.formatting}
+      isIncreasePositive={metrics[3].isIncreasePositive}
+      formattingType={metrics[3].formattingType}
       currentValue={numberOfDeprecationTS}
       component={component}
-      metricKey={metrics.numberOfDeprecations.key}
+      metricKey={metrics[3].key}
     />
   );
 
@@ -67,22 +76,16 @@ export async function Dashboard({ component }: Props) {
     grid = (
       <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
         <SonarQubeCard
-          title={metrics.codeCoverage.title}
+          metricsConfigObj={metrics[0]}
           history={measures[0].history}
-          isIncreasePositive={metrics.codeCoverage.isIncreasePositive}
-          formattingType={metrics.codeCoverage.formatting}
         />
         <SonarQubeCard
-          title={metrics.cognitiveComplexity.title}
+          metricsConfigObj={metrics[1]}
           history={measures[1].history}
-          isIncreasePositive={metrics.cognitiveComplexity.isIncreasePositive}
-          formattingType={metrics.cognitiveComplexity.formatting}
         />
-        <SonarQubeCard
-          title={metrics.technicalDebt.title}
+        <SonarQubeCard    
+          metricsConfigObj={metrics[2]} 
           history={measures[2].history}
-          isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
-          formattingType={metrics.technicalDebt.formatting}
         />
         {deprecationCard}
       </Grid>
@@ -93,19 +96,13 @@ export async function Dashboard({ component }: Props) {
     grid = (
       <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
         <SonarQubeCard
-          title={metrics.codeCoverage.title}
-          isIncreasePositive={metrics.codeCoverage.isIncreasePositive}
-          formattingType={metrics.codeCoverage.formatting}
+          metricsConfigObj={metrics[0]}
         />
         <SonarQubeCard
-          title={metrics.cognitiveComplexity.title}
-          isIncreasePositive={metrics.cognitiveComplexity.isIncreasePositive}
-          formattingType={metrics.cognitiveComplexity.formatting}
+          metricsConfigObj={metrics[1]}
         />
         <SonarQubeCard
-          title={metrics.technicalDebt.title}
-          isIncreasePositive={metrics.technicalDebt.isIncreasePositive}
-          formattingType={metrics.technicalDebt.formatting}
+         metricsConfigObj={metrics[2]}
         />
         {deprecationCard}
       </Grid>

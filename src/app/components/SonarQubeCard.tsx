@@ -5,19 +5,22 @@ import { MyMetric } from '@/app/components/MyMetric';
 import { MyBadgeDelta } from '@/app/components/MyBadgeDelta';
 import { FormattingType } from '@/app/utils/FormattingType';
 
-interface Props {
+interface MetricsDefinition {
   title: string;
-  history?: { date: Date, value: number }[];
+  key: string;
   isIncreasePositive: boolean;
   formattingType: FormattingType;
+  hasMeasuresHistory:boolean;
 }
 
-export const SonarQubeCard = ({
-  title,
-  history,
-  isIncreasePositive = true,
-  formattingType,
-}: Props) => {
+interface SonarQubeCardProps {
+  metricsConfigObj: MetricsDefinition;
+  history?: { date: Date, value: number }[];
+}
+
+export const SonarQubeCard = ({ metricsConfigObj, history }: SonarQubeCardProps) => {
+  const { title, isIncreasePositive, formattingType } = metricsConfigObj;
+
   let badgeDelta = null;
   let metric = null;
   let lineChart = null;
