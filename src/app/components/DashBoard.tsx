@@ -70,44 +70,24 @@ export async function Dashboard({ component }: Props) {
     />
   );
 
-  let grid = null;
+  const sonarQubeCards=metrics.map(
+    (metric,index)=>{
+      if(metric.hasMeasuresHistory){
+        return(
+          <SonarQubeCard
+        metricsConfigObj={metric}
+        history={measures[index].history}
+      />
+        );
+      }
+      
+    }
+  );
 
-  if (data.measures) {
-    grid = (
-      <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-        <SonarQubeCard
-          metricsConfigObj={metrics[0]}
-          history={measures[0].history}
-        />
-        <SonarQubeCard
-          metricsConfigObj={metrics[1]}
-          history={measures[1].history}
-        />
-        <SonarQubeCard    
-          metricsConfigObj={metrics[2]} 
-          history={measures[2].history}
-        />
+  return (
+    <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
+        {sonarQubeCards}
         {deprecationCard}
       </Grid>
-    );
-  } else {
-    // show the cards but pass no history array
-    // has to be done this way, otherwise when reading history property there will be run time error
-    grid = (
-      <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
-        <SonarQubeCard
-          metricsConfigObj={metrics[0]}
-        />
-        <SonarQubeCard
-          metricsConfigObj={metrics[1]}
-        />
-        <SonarQubeCard
-         metricsConfigObj={metrics[2]}
-        />
-        {deprecationCard}
-      </Grid>
-    );
-  }
-
-  return grid;
+  ) 
 }
