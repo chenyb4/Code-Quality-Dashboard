@@ -85,7 +85,7 @@ export async function Dashboard({ component }: Props) {
   );
 
   return (
-    <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
+    <Grid numItemsSm={2} numItemsLg={4} className="gap-6">
         {sonarQubeCards}
         {deprecationCard}
       </Grid>

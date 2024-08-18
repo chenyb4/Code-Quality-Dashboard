@@ -38,6 +38,38 @@ export const metrics:MetricsDefinition[] = [
     formattingType: FormattingType.HOURSANDMINUTES,
     hasMeasuresHistory:true
   },
+  {
+    title: 'Duplicated blocks',
+    key: 'duplicated_blocks',
+    isIncreasePositive: false,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:true
+  },
+  {
+    title: 'Cyclomatic complexity',
+    key: 'complexity',
+    isIncreasePositive: false,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:true
+  },
+  {
+    title: 'maintainability Issues',
+    key: 'code_smells',
+    isIncreasePositive: false,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:true
+  },
+  {
+    title: 'Security Issues',
+    key: 'vulnerabilities',
+    isIncreasePositive: false,
+    formattingType: FormattingType.ABSOLUTE,
+    hasMeasuresHistory:true
+  },
+
+
+
+
  {
     title: 'Number of Deprecations',
     key: 'deprecation',
@@ -45,4 +77,5 @@ export const metrics:MetricsDefinition[] = [
     formattingType: FormattingType.ABSOLUTE,
     hasMeasuresHistory:false
   },
+  
 ];
