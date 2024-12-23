@@ -1,4 +1,5 @@
 # Code Quality Dashboard
+Code Quality Dashboard is a dashboard application that visualizes SonarQube code quality measures history by communicating to SonarQube REST API.
 
 ## Configure Authentication
 
